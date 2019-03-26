@@ -1,0 +1,20 @@
+{
+    "name": "lin/okex",
+    "type": "library",
+    "description": "Okex API Like the official document interface, Support for arbitrary extension.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lin",
+            "email": "465382251@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lin\\Okex\\": "./src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
