@@ -6,7 +6,6 @@
 namespace Lin\Okex;
 
 
-
 class Okex
 {
     protected $key;
@@ -17,6 +16,7 @@ class Okex
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
+        
     }
     
     
