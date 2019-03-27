@@ -24,12 +24,4 @@ class Withdrawal
     public function getHistory(){
         
     }
-    
-    public function getHistory(){
-        
-    }
-    
-    public function getHistory(){
-        
-    }
 }

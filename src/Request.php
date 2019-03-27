@@ -10,14 +10,15 @@ use Lin\Okex\Exceptions\Exception;
 
 class Request
 {
-    /**
-     * 是否开启bitmex测试账号，需要先去申请测试账号。
-     * */
     protected $key='';
     
     protected $secret='';
     
     protected $host='';
+    
+    protected $passphrase='';
+    
+    
     
     protected $nonce='';
     
@@ -31,13 +32,16 @@ class Request
     
     protected $data=[];
     
+    
+    
     protected $timeout=10;
     
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.bitmex.com';
+        $this->passphrase = $data['passphrase'] ?? '';
+        $this->host=$data['host'] ?? 'https://www.okex.com/';
     }
     
     /**
@@ -55,7 +59,7 @@ class Request
      * 过期时间
      * */
     protected function nonce(){
-        $this->nonce = (string) number_format(round(microtime(true) * 100000), 0, '.', '');
+        $this->nonce=gmdate('Y-m-d\TH:i:s\.000\Z');
     }
     
     /**
@@ -63,7 +67,7 @@ class Request
      * */
     protected function signature(){
         $endata=http_build_query($this->data);
-        $this->signature=hash_hmac('sha256', $this->type.$this->path.$this->nonce.$endata, $this->secret);
+        $this->signature = base64_encode(hash_hmac('sha256', $this->nonce.$this->type.$this->path.$endata, $this->secret, true));
     }
     
     /**
@@ -76,13 +80,12 @@ class Request
         
         if(!empty($this->key) && !empty($this->secret)) {
             $this->headers=array_merge($this->headers,[
-                'api-expires'      => $this->nonce,
-                'api-key'=>$this->key,
-                'api-signature' => $this->signature,
+                'OK-ACCESS-KEY'=> $this->key,
+                'OK-ACCESS-TIMESTAMP'=>$this->nonce,
+                'OK-ACCESS-PASSPHRASE' =>$this->passphrase,
+                'OK-ACCESS-SIGN' => $this->signature,
             ]);
         }
-        
-        if(!empty($this->data)) $this->headers['content-type']='application/x-www-form-urlencoded';
     }
     
     /**

@@ -7,14 +7,26 @@ namespace Lin\Okex\Api\Spot;
 
 
 
-class Accounts
+use Lin\Okex\Request;
+
+class Accounts extends Request
 {
-    public function getAll(){
+    public function getAll(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/spot/v3/accounts';
+        $this->data=$data;
         
+        return $this->exec();
     }
     
-    public function get(){
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/spot/v3/accounts/'.$data['currency'];
+        unset($data['currency']);
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
     public function getLedger(){
