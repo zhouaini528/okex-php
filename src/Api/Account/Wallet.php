@@ -3,21 +3,17 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Lin\Okex\Api\Spot;
+namespace Lin\Okex\Api\Account;
 
 
 
-class Accounts
+class Wallet
 {
     public function getAll(){
         
     }
     
     public function get(){
-        
-    }
-    
-    public function getLedger(){
         
     }
 }

@@ -3,8 +3,7 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Lin\Okex\Api\Spot;
-
+namespace Lin\Okex\Api\Futures;
 
 
 class Instruments
@@ -30,6 +29,30 @@ class Instruments
     }
     
     public function getCandles(){
+        
+    }
+
+    public function getIndex(){
+        
+    }
+    
+    public function getEstimatedPrice(){
+        
+    }
+    
+    public function getOpenInterest(){
+        
+    }
+    
+    public function getPriceLimit(){
+        
+    }
+    
+    public function getMarkPrice(){
+        
+    }
+    
+    public function getLiquidation(){
         
     }
 }
