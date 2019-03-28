@@ -10,7 +10,7 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 ### Spot Trading API
 
-Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instruments.php)
+Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instrument.php)
 ```php
 use Lin\Okex\OkexSpot;
 $okex=new OkexSpot();
@@ -116,7 +116,9 @@ try {
 }
 
 ```
+
 [More use cases](https://github.com/zhouaini528/okex-php/tree/master/tests/spot)
+
 [More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Spot)
 
 ### Futures Trading API
@@ -243,6 +245,10 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 ```
+
+[More use cases](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
+
+[More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
 
 ### Margin Trading API
 In the works
