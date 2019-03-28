@@ -1,4 +1,4 @@
-### It is recommended that you use the test server first
+### It is recommended that you read the documentation first
 
 Okex docs [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#README)
 
@@ -123,7 +123,7 @@ try {
 
 ### Futures Trading API
 
-Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/instruments.php)
+Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/instrument.php)
 ```php
 $okex=new OkexFuture();
 
@@ -251,11 +251,11 @@ try {
 [More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
 
 ### Margin Trading API
-In the works
+being developed
 ### Futures Trading API
-In the works
+being developed
 ### Perpetual Swap API
-In the works
+being developed
 
 
 
