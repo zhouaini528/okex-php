@@ -1,4 +1,4 @@
-### It is recommended that you read the documentation first
+### It is recommended that you read the official document first
 
 Okex docs [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#README)
 
@@ -256,6 +256,3 @@ being developed
 being developed
 ### Perpetual Swap API
 being developed
-
-
-
