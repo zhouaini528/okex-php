@@ -13,9 +13,7 @@ use Lin\Okex\OkexFuture;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-include 'key_secret.php';
-
-$okex=new OkexFuture($key,$secret,$passphrase);
+$okex=new OkexFuture();
 
 //List all contracts. This request does not support pagination. The full list will be returned for a request.
 try {
