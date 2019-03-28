@@ -10,12 +10,13 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 ### Spot Trading API
 
-Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instrments.php)
+Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instruments.php)
 ```php
 use Lin\Okex\OkexSpot;
 $okex=new OkexSpot();
 
-//Getting the order book of a trading pair. Pagination is not supported here. The whole book will be returned for one request. WebSocket is recommended here.
+//Getting the order book of a trading pair. Pagination is not supported here. 
+//The whole book will be returned for one request. WebSocket is recommended here.
 try {
     $result=$okex->instrument()->getBook([
         'instrument_id'=>'BTC-USDT',
@@ -84,7 +85,8 @@ Accounts related API [More](https://github.com/zhouaini528/okex-php/blob/master/
 ```php
 $okex=new OkexSpot($key,$secret,$passphrase);
 
-//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
+//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), 
+//The balances, amount available/on hold in spot accounts.
 try {
     $result=$okex->account()->getAll();
     print_r($result);
@@ -232,7 +234,8 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Get the information of all holding positions in futures trading.Due to high energy consumption, you are advised to capture data with the "Futures Account of a Currency" API instead.
+//Get the information of all holding positions in futures trading.Due to high energy consumption,
+//You are advised to capture data with the "Futures Account of a Currency" API instead.
 try {
     $result=$okex->position()->getAll();
     print_r($result);
