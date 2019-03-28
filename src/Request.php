@@ -66,8 +66,18 @@ class Request
      * 签名
      * */
     protected function signature(){
-        $endata=http_build_query($this->data);
-        $this->signature = base64_encode(hash_hmac('sha256', $this->nonce.$this->type.$this->path.$endata, $this->secret, true));
+        $body='';
+        $path=$this->type.$this->path;
+        
+        if(!empty($this->data)) {
+            if($this->type=='GET') {
+                $path.='?'.http_build_query($this->data);
+            }else{
+                $body=json_encode($this->data);
+            }
+        }
+        
+        $this->signature = base64_encode(hash_hmac('sha256', $this->nonce.$path.$body, $this->secret, true));
     }
     
     /**
@@ -75,7 +85,7 @@ class Request
      * */
     protected function headers(){
         $this->headers=[
-            'accept' => 'application/json',
+            'Content-Type' => 'application/json',
         ];
         
         if(!empty($this->key) && !empty($this->secret)) {
@@ -105,7 +115,7 @@ class Request
             if($this->type=='GET') {
                 $url.='?'.http_build_query($this->data);
             }else{
-                $data['form_params']=$this->data;
+                $data['body']=json_encode($this->data);
             }
         }
         
