@@ -6,6 +6,12 @@
 namespace Lin\Okex;
 
 
+use Lin\Okex\Api\Futures\Accounts;
+use Lin\Okex\Api\Futures\Fills;
+use Lin\Okex\Api\Futures\Instruments;
+use Lin\Okex\Api\Futures\Orders;
+use Lin\Okex\Api\Futures\Position;
+
 class OkexFuture
 {
     protected $key;
@@ -58,5 +64,12 @@ class OkexFuture
      * */
     public function order(){
         return new Orders($this->init());
+    }
+    
+    /**
+     *
+     * */
+    public function position(){
+        return new Position($this->init());
     }
 }

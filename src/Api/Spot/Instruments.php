@@ -28,18 +28,30 @@ class Instruments extends Request
     }
     
     public function getTickerAll(array $data){
-        
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
     public function getTicker(array $data){
-        
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
     public function getTrades(array $data){
-        
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
     public function getCandles(array $data){
-        
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
 }

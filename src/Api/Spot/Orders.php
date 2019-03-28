@@ -62,16 +62,25 @@ class Orders extends Request
         return $this->exec();
     }
     
-    public function postCancelBatch(){
-        
+    public function postCancelBatch(array $data){
+        $this->type='POST';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
-    public function getAll(){
-        
+    public function getAll(array $data){
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
-    public function getPending(){
-        
+    public function getPending(array $data){
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
     
     /**

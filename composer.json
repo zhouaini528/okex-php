@@ -1,11 +1,11 @@
 {
-    "name": "lin/okex",
+    "name": "linwj/okex",
     "type": "library",
     "description": "Okex API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
     "authors": [
         {
-            "name": "lin",
+            "name": "linwenjun",
             "email": "465382251@qq.com"
         }
     ],

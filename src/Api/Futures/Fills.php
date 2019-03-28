@@ -9,7 +9,10 @@ namespace Lin\Okex\Api\Futures;
 
 class Fills
 {
-    public function get(){
-        
+    public function get(array $data){
+        $this->type='GET';
+        $this->path='';
+        $this->data=$data;
+        return $this->exec();
     }
 }
