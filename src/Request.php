@@ -99,9 +99,17 @@ class Request
             'timeout'=>$this->timeout
         ];
         
-        if(!empty($this->data)) $data['form_params']=$this->data;
+        $url=$this->host.$this->path;
         
-        $response = $client->request($this->type, $this->host.$this->path, $data);
+        if(!empty($this->data)) {
+            if($this->type=='GET') {
+                $url.='?'.http_build_query($this->data);
+            }else{
+                $data['form_params']=$this->data;
+            }
+        }
+        
+        $response = $client->request($this->type, $url, $data);
         
         return $response->getBody()->getContents();
     }
