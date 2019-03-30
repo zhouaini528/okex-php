@@ -10,7 +10,9 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 ### 其他交易所API
 [Bitmex](https://packagist.org/packages/linwj/bitmex)
+
 [Okex](https://packagist.org/packages/linwj/okex)
+
 [Huobi](https://packagist.org/packages/linwj/huobi)
 
 ### Spot Trading API

@@ -10,7 +10,9 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 ### Other exchanges API
 [Bitmex](https://packagist.org/packages/linwj/bitmex)
+
 [Okex](https://packagist.org/packages/linwj/okex)
+
 [Huobi](https://packagist.org/packages/linwj/huobi)
 
 ### Spot Trading API
