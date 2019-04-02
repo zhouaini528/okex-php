@@ -9,11 +9,17 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 [中文文档](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md)
 
 ### 其他交易所API
-[Bitmex](https://packagist.org/packages/linwj/bitmex)
 
-[Okex](https://packagist.org/packages/linwj/okex)
+[Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Huobi](https://packagist.org/packages/linwj/huobi)
+[Okex](https://github.com/zhouaini528/okex-php)
+
+[Huobi](https://github.com/zhouaini528/huobi-php)
+
+#### 安装方式
+```
+composer require "linwj/okex dev-master"
+```
 
 ### Spot Trading API
 
