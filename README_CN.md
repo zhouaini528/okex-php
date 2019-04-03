@@ -21,7 +21,7 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 composer require "linwj/okex dev-master"
 ```
 
-### Spot Trading API
+### 现货交易 API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instrument.php)
 ```php
@@ -134,7 +134,7 @@ try {
 
 [更多API请查看](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Spot)
 
-### Futures Trading API
+### 期货交易 API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/instrument.php)
 ```php

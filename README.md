@@ -24,6 +24,7 @@ composer require "linwj/okex dev-master"
 ### Spot Trading API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instrument.php)
+
 ```php
 use Lin\Okex\OkexSpot;
 $okex=new OkexSpot();
@@ -51,6 +52,7 @@ try {
 ```
 
 Order related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/order.php)
+
 ```php
 $okex=new OkexSpot($key,$secret,$passphrase);
 //Place an Order
@@ -95,6 +97,7 @@ try {
 ```
 
 Accounts related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/accounts.php)
+
 ```php
 $okex=new OkexSpot($key,$secret,$passphrase);
 
@@ -137,6 +140,7 @@ try {
 ### Futures Trading API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/instrument.php)
+
 ```php
 $okex=new OkexFuture();
 
@@ -161,6 +165,7 @@ try {
 ```
 
 Order related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/order.php)
+
 ```php
 $okex=new OkexFuture($key,$secret,$passphrase);
 
@@ -203,6 +208,7 @@ try {
 ```
 
 Accounts related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/accounts.php)
+
 ```php
 $okex=new OkexSpot($key,$secret,$passphrase);
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
