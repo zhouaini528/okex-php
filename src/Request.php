@@ -139,16 +139,16 @@ class Request
                 
                 $temp=json_decode($contents,true);
                 if(!empty($temp)) {
-                    $temp['method']=$this->type;
-                    $temp['url']=$this->host.$this->path;
+                    $temp['_method']=$this->type;
+                    $temp['_url']=$this->host.$this->path;
                 }else{
-                    $temp['message']=$e->getMessage();
+                    $temp['_message']=$e->getMessage();
                 }
             }else{
-                $temp['message']=$e->getMessage();
+                $temp['_message']=$e->getMessage();
             }
             
-            $temp['httpcode']=$e->getCode();
+            $temp['_httpcode']=$e->getCode();
             
             //TODO  该流程可以记录各种日志
             throw new Exception(json_encode($temp));
