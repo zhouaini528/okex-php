@@ -16,6 +16,8 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
+[Binance](https://github.com/zhouaini528/binance-php)
+
 #### Installation
 ```
 composer require "linwj/okex dev-master"
