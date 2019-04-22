@@ -269,7 +269,7 @@ try {
 }
 ```
 
-[More use cases](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
+[More Test](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
 
 [More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
 
