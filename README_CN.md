@@ -18,7 +18,7 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
-[Exchanges](https://github.com/zhouaini528/exchanges-php) All integration
+[Exchanges](https://github.com/zhouaini528/exchanges-php) 是以上所有交易所集合成的SDK
 
 #### 安装方式
 ```
