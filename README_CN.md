@@ -25,6 +25,18 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 composer require "linwj/okex dev-master"
 ```
 
+支持本地开发代理设置 [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
+```php
+//If you are developing locally and need an agent, you can set this
+$okex->setProxy();
+
+//More flexible Settings
+$okex->setProxy([
+    'http'  => 'http://127.0.0.1:12333',
+    'https' => 'http://127.0.0.1:12333',
+]);
+```
+
 ### 现货交易 API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/instrument.php)
