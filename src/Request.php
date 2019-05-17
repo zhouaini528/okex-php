@@ -32,9 +32,9 @@ class Request
     
     protected $data=[];
     
-    
-    
     protected $timeout=10;
+    
+    protected $proxy=false;
     
     public function __construct(array $data)
     {
@@ -99,6 +99,17 @@ class Request
     }
     
     /**
+     * 代理端口设置
+     * @param bool|array
+     * false   默认
+     * true   设置本地代理
+     * array  手动设置代理
+     * */
+    function proxy($proxy=false){
+        $this->proxy=$proxy;
+    }
+    
+    /**
      * 发送http
      * */
     protected function send(){
@@ -108,6 +119,17 @@ class Request
             'headers'=>$this->headers,
             'timeout'=>$this->timeout
         ];
+        
+        //是否有代理设置
+        if(is_array($this->proxy)){
+            $data=array_merge($data,['proxy'=>$this->proxy]);
+        }else{
+            if($this->proxy) $data['proxy']=[
+                'http'  => 'http://127.0.0.1:12333',
+                'https' => 'http://127.0.0.1:12333',
+                'no'    =>  ['.cn']
+            ];
+        }
         
         $url=$this->host.$this->path;
         

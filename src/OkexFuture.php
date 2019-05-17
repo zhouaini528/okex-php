@@ -19,6 +19,8 @@ class OkexFuture
     protected $passphrase;
     protected $host;
     
+    protected $proxy=false;
+    
     function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
         $this->key=$key;
         $this->secret=$secret;
@@ -39,37 +41,64 @@ class OkexFuture
     }
     
     /**
+     * Local development sets the proxy
+     * @param bool|array
+     * $proxy=false Default
+     * $proxy=true  Local proxy http://127.0.0.1:12333
+     *
+     * Manual proxy
+     * $proxy=[
+     'http'  => 'http://127.0.0.1:12333',
+     'https' => 'http://127.0.0.1:12333',
+     'no'    =>  ['.cn']
+     * ]
+     * */
+    function setProxy($proxy=true){
+        $this->proxy=$proxy;
+    }
+    
+    /**
      *
      * */
     public function account(){
-        return new Accounts($this->init());
+        $account= new Accounts($this->init());
+        $account->proxy($this->proxy);
+        return $account;
     }
     
     /**
      *
      * */
     public function fill(){
-        return new Fills($this->init());
+        $fill= new Fills($this->init());
+        $fill->proxy($this->proxy);
+        return $fill;
     }
     
     /**
      *
      * */
     public function instrument(){
-        return new Instruments($this->init());
+        $instrument= new Instruments($this->init());
+        $instrument->proxy($this->proxy);
+        return $instrument;
     }
     
     /**
      *
      * */
     public function order(){
-        return new Orders($this->init());
+        $order= new Orders($this->init());
+        $order->proxy($this->proxy);
+        return $order;
     }
     
     /**
      *
      * */
     public function position(){
-        return new Position($this->init());
+        $position= new Position($this->init());
+        $position->proxy($this->proxy);
+        return $position;
     }
 }
