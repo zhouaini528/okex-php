@@ -92,9 +92,11 @@ class Orders extends Request
         client_oid	string	[ required ] The client_oid type should be comprised of alphabets + numbers or only alphabets within 1 – 32 characters， both uppercase and lowercase letters are supported
      * */
     public function get(array $data){
-        $id=$data['order_id'] ?? $data['client_oid'];
+        $id=$data['order_id'] ?? ($data['client_oid'] ?? '');
         unset($data['order_id']);
         unset($data['client_oid']);
+        
+        if(empty($id)) $data['state']=2;
         
         $this->type='GET';
         $this->path='/api/spot/v3/orders/'.$id;
