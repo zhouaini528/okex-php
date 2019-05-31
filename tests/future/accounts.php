@@ -9,13 +9,13 @@
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
-use Lin\Okex\OkexSpot;
+use Lin\Okex\OkexFuture;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$okex=new OkexSpot($key,$secret,$passphrase);
+$okex=new OkexFuture($key,$secret,$passphrase);
 
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
 try {

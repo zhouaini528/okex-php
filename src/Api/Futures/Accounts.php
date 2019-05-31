@@ -17,18 +17,14 @@ class Accounts extends Request
      * */
     public function getAll(){
         $this->type='GET';
-        $this->path='/api/futures/v3/order';
-        
-        $data['leverage']=$data['leverage']??10;
-        
-        $this->data=$data;
+        $this->path='/api/futures/v3/accounts';
         
         return $this->exec();
     }
     
-    public function get(array $data){
+    public function get(array $data=[]){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/accounts/'.$data['currency'];
         
         $this->data=$data;
         
@@ -37,7 +33,7 @@ class Accounts extends Request
     
     public function getLeverage(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/accounts/'.$data['currency'].'/leverage';
         
         $this->data=$data;
         
@@ -46,19 +42,19 @@ class Accounts extends Request
     
     public function postLeverage(array $data){
         $this->type='POST';
-        $this->path='';
+        $this->path='/api/futures/v3/accounts/'.$data['currency'].'/leverage';
         $this->data=$data;
         return $this->exec();
     }
     
     public function getLedger(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/accounts/'.$data['currency'].'/ledger';
         $this->data=$data;
         return $this->exec();
     }
     
-    public function getHolds(array $data){
+    public function getHolds(array $data=[]){
         $this->type='GET';
         $this->path='';
         
