@@ -7,9 +7,14 @@ namespace Lin\Okex\Api\Swap;
 
 
 
-class Rate
+use Lin\Okex\Request;
+
+class Rate extends Request
 {
     public function get(){
+        $this->type='GET';
+        $this->path='/api/swap/v3/rate';
         
+        return $this->exec();
     }
 }

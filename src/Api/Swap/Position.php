@@ -7,13 +7,26 @@ namespace Lin\Okex\Api\Swap;
 
 
 
-class Position
+use Lin\Okex\Request;
+
+class Position extends Request
 {
     public function getAll(){
+        $this->type='GET';
+        $this->path='/api/swap/v3/position';
         
+        return $this->exec();
     }
     
-    public function get(){
+    /**
+     * GET /api/swap/v3/BTC-USD-SWAP/position
+     * */
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/swap/v3/'.$data['instrument_id'].'/position';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }

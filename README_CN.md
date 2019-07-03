@@ -152,7 +152,7 @@ try {
 
 [更多API请查看](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Spot)
 
-### 期货交易 API
+### 期货交割 API
 
 Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/future/instrument.php)
 ```php
@@ -277,13 +277,137 @@ try {
 }
 ```
 
+### 期货永续 API
+
+Instrument related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/swap/instrument.php)
+```php
+$okex=new OkexFuture();
+
+//List all contracts. This request does not support pagination. The full list will be returned for a request.
+try {
+    $result=$okex->instrument()->getDepth([
+        'instrument_id'=>'BTC-USD-SWAP',
+        'size'=>10,
+    ]);
+    
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Get market data. This endpoint provides the snapshots of market data and can be used without verifications.
+try {
+    $result=$okex->instrument()->get();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+Order related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/swap/order.php)
+```php
+$okex=new OkexFuture($key,$secret,$passphrase);
+
+//Place an Order
+try {
+    $result=$okex->order()->post([
+        'instrument_id'=>'BTC-USD-SWAP',
+        'type'=>'1',
+        'price'=>'5000',
+        'size'=>'1',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Get order details by order ID.
+try {
+    $result=$okex->order()->get([
+        'instrument_id'=>'BTC-USD-SWAP',
+        'order_id'=>$result['order_id'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Cancelling an unfilled order.
+try {
+    $result=$okex->order()->postCancel([
+        'instrument_id'=>'BTC-USD-SWAP',
+        'order_id'=>$result['order_id'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+Accounts related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/swap/accounts.php)
+```php
+$okex=new OkexSpot($key,$secret,$passphrase);
+//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
+try {
+    $result=$okex->account()->getAll();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//This endpoint supports getting the balance, amount available/on hold of a token in spot account.
+try {
+    $result=$okex->account()->get([
+        'instrument_id'=>'BTC-USD-SWAP'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//All paginated requests return the latest information (newest) as the first page sorted by newest (in chronological time) first.
+try {
+    $result=$okex->account()->getLedger([
+        'instrument_id'=>'BTC-USD-SWAP',
+        'limit'=>2,
+        //'type'=>'1',
+        //'from'=>'',
+        //'to'=>'',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+Position related API [More](https://github.com/zhouaini528/okex-php/blob/master/tests/swap/position.php)
+```php
+$okex=new OkexFuture($key,$secret,$passphrase);
+
+//Get the information of holding positions of a contract.
+try {
+    $result=$okex->position()->get([
+        'instrument_id'=>'BTC-USD-SWAP',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Get the information of all holding positions in futures trading.Due to high energy consumption, you are advised to capture data with the "Futures Account of a Currency" API instead.
+try {
+    $result=$okex->position()->getAll();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+
+
+
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
 
 [更多API请查看](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
-
-### Margin Trading API
-being developed
-### Futures Trading API
-being developed
-### Perpetual Swap API
-being developed

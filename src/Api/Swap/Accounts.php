@@ -5,35 +5,74 @@
 
 namespace Lin\Okex\Api\Swap;
 
+use Lin\Okex\Request;
 
-
-class Accounts
+class Accounts extends Request
 {
     public function getAll(){
+        $this->type='GET';
+        $this->path='/api/swap/v3/accounts';
         
+        return $this->exec();
     }
     
-    public function get(){
+    /**
+     * GET GET /api/swap/v3/<instrument_id>/accounts
+     * */
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/swap/v3/'.$data['instrument_id'].'/accounts';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
-    public function getSettings(){
+    /**
+     * GET /api/swap/v3/accounts/<instrument_id>/settings
+     * */
+    public function getSettings(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/swap/v3/accounts/'.$data['instrument_id'].'/settings';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
-    /* public function getLeverage(){
+    /**
+     * POST /api/swap/v3/accounts/<instrument_id>/leverage
+     * */
+    public function postLeverage(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/swap/v3/accounts/'.$data['instrument_id'].'/leverage';
         
-    } */
-    
-    public function postLeverage(){
+        $this->data=$data;
         
+        return $this->exec();
     }
     
-    public function getLedger(){
+    /**
+     * GET /api/swap/v3/accounts/<instrument_id>/ledger
+     * */
+    public function getLedger(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/swap/v3/accounts/'.$data['instrument_id'].'/ledger';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
-    public function getHolds(){
+    /**
+     * GET /api/swap/v3/accounts/<instrument_id>/holds
+     * */
+    public function getHolds(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/swap/v3/accounts/'.$data['instrument_id'].'/holds';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }
