@@ -32,7 +32,7 @@ class Request
     
     protected $data=[];
     
-    protected $timeout=10;
+    protected $timeout=60;
     
     protected $proxy=false;
     
@@ -42,6 +42,8 @@ class Request
         $this->secret=$data['secret'] ?? '';
         $this->passphrase = $data['passphrase'] ?? '';
         $this->host=$data['host'] ?? 'https://www.okex.com/';
+        
+        $this->timeout=$data['timeout'] ?? 60;
     }
     
     /**
