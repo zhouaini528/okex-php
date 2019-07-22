@@ -17,6 +17,9 @@ include 'key_secret.php';
 
 $okex=new OkexSpot($key,$secret,$passphrase);
 
+//Set the request timeout to 60 seconds by default
+//$okex->setTimeOut(10);
+
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
 try {
     $result=$okex->account()->getAll();

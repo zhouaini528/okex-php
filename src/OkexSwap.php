@@ -21,6 +21,7 @@ class OkexSwap
     protected $host;
     
     protected $proxy=false;
+    protected $timeout=60;
     
     function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
         $this->key=$key;
@@ -38,6 +39,7 @@ class OkexSwap
             'secret'=>$this->secret,
             'passphrase'=>$this->passphrase,
             'host'=>$this->host,
+            'timeout'=>$this->timeout,
         ];
     }
     
@@ -56,6 +58,13 @@ class OkexSwap
      * */
     function setProxy($proxy=true){
         $this->proxy=$proxy;
+    }
+    
+    /**
+     * Set the request timeout to 60 seconds by default
+     * */
+    function setTimeOut($timeout=60){
+        $this->timeout=$timeout;
     }
     
     /**

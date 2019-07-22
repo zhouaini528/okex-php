@@ -16,7 +16,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 include 'key_secret.php';
 
 $okex=new OkexSwap($key,$secret,$passphrase);
-$okex->setProxy();
+//$okex->setProxy();
+
+//Set the request timeout to 60 seconds by default
+//$okex->setTimeOut(10);
 
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
 try {
