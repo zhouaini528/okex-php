@@ -5,15 +5,29 @@
 
 namespace Lin\Okex\Api\Account;
 
+use Lin\Okex\Request;
 
-
-class Wallet
+class Wallet extends Request
 {
+    /**
+     * GET /api/account/v3/wallet
+     * */
     public function getAll(){
+        $this->type='GET';
+        $this->path='/api/account/v3/wallet';
         
+        return $this->exec();
     }
     
-    public function get(){
+    /**
+     * GET /api/account/v3/wallet/<currency>
+     * */
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/wallet/'.$data['currency'];
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }

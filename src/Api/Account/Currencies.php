@@ -5,11 +5,19 @@
 
 namespace Lin\Okex\Api\Account;
 
+use Lin\Okex\Request;
 
-
-class Currencies
+class Currencies extends Request
 {
-    public function get(){
+    /**
+     * GET /api/account/v3/currencies
+     * */
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/currencies';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }

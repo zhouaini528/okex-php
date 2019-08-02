@@ -5,19 +5,43 @@
 
 namespace Lin\Okex\Api\Account;
 
+use Lin\Okex\Request;
 
-
-class Deposit
+class Deposit extends Request
 {
-    public function getAddress(){
+    /**
+     * GET /api/account/v3/deposit/address
+     * */
+    public function getAddress(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/deposit/address';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
-    public function getHistory(){
+    /**
+     * GET /api/account/v3/deposit/history/<currency>
+     * */
+    public function getHistory(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/deposit/history/'.$data['currency'];
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
     
-    public function getHistoryAll(){
+    /**
+     * GET /api/account/v3/deposit/history
+     * */
+    public function getHistoryAll(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/deposit/history';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }

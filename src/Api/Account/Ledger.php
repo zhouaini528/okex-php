@@ -5,11 +5,19 @@
 
 namespace Lin\Okex\Api\Account;
 
+use Lin\Okex\Request;
 
-
-class Ledger
+class Ledger  extends Request
 {
-    public function get(){
+    /**
+     *
+     * */
+    public function get(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/account/v3/ledger';
         
+        $this->data=$data;
+        
+        return $this->exec();
     }
 }
