@@ -20,8 +20,7 @@ class OkexSwap
     protected $passphrase;
     protected $host;
     
-    protected $proxy=false;
-    protected $timeout=60;
+    protected $options=[];
     
     function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
         $this->key=$key;
@@ -39,85 +38,57 @@ class OkexSwap
             'secret'=>$this->secret,
             'passphrase'=>$this->passphrase,
             'host'=>$this->host,
-            'timeout'=>$this->timeout,
+            
+            'options'=>$this->options,
         ];
     }
     
     /**
-     * Local development sets the proxy
-     * @param bool|array
-     * $proxy=false Default
-     * $proxy=true  Local proxy http://127.0.0.1:12333
      *
-     * Manual proxy
-     * $proxy=[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     * ]
      * */
-    function setProxy($proxy=true){
-        $this->proxy=$proxy;
-    }
-    
-    /**
-     * Set the request timeout to 60 seconds by default
-     * */
-    function setTimeOut($timeout=60){
-        $this->timeout=$timeout;
+    function setOptions(array $options=[]){
+        $this->options=$options;
     }
     
     /**
      *
      * */
     public function account(){
-        $account= new Accounts($this->init());
-        $account->proxy($this->proxy);
-        return $account;
+        return new Accounts($this->init());
     }
     
     /**
      *
      * */
     public function fill(){
-        $fill= new Fills($this->init());
-        $fill->proxy($this->proxy);
-        return $fill;
+        return new Fills($this->init());
     }
     
     /**
      *
      * */
     public function instrument(){
-        $instrument= new Instruments($this->init());
-        $instrument->proxy($this->proxy);
-        return $instrument;
+        return  new Instruments($this->init());
     }
     
     /**
      *
      * */
     public function order(){
-        $order= new Orders($this->init());
-        $order->proxy($this->proxy);
-        return $order;
+        return  new Orders($this->init());
     }
     
     /**
      *
      * */
     public function position(){
-        $position= new Position($this->init());
-        $position->proxy($this->proxy);
-        return $position;
+        return  new Position($this->init());
     }
     
     /**
      *
      * */
     public function rate(){
-        $rate= new Rate($this->init());
-        $rate->proxy($this->proxy);
-        return $rate;
+        return  new Rate($this->init());
     }
 }

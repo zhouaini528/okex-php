@@ -17,10 +17,27 @@ include 'key_secret.php';
 
 $okex=new OkexFuture($key,$secret,$passphrase);
 
+//You can set special needs
+$okex->setOptions([
+    //Set the request timeout to 60 seconds by default
+    'timeout'=>10,
+    
+    //If you are developing locally and need an agent, you can set this
+    'proxy'=>true,
+    //More flexible Settings
+    /* 'proxy'=>[
+     'http'  => 'http://127.0.0.1:12333',
+     'https' => 'http://127.0.0.1:12333',
+     'no'    =>  ['.cn']
+     ], */
+    //Close the certificate
+    //'verify'=>false,
+]);
+
 //Place an Order
 try {
     $result=$okex->order()->post([
-        'instrument_id'=>'btc-usd-190628',
+        'instrument_id'=>'BTC-USD-190927',
         'type'=>'1',
         'price'=>'100',
         'size'=>'1',
@@ -34,7 +51,7 @@ sleep(1);
 //Get order details by order ID.
 try {
     $result=$okex->order()->get([
-        'instrument_id'=>'btc-usd-190628',
+        'instrument_id'=>'BTC-USD-190927',
         'order_id'=>$result['order_id'],
     ]);
     print_r($result);
@@ -46,7 +63,7 @@ sleep(1);
 //Cancelling an unfilled order.
 try {
     $result=$okex->order()->postCancel([
-        'instrument_id'=>'btc-usd-190628',
+        'instrument_id'=>'BTC-USD-190927',
         'order_id'=>$result['order_id'],
     ]);
     print_r($result);

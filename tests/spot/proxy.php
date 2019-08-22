@@ -17,13 +17,21 @@ include 'key_secret.php';
 
 $okex=new OkexSpot($key,$secret,$passphrase);
 
-//If you are developing locally and need an agent, you can set this
-$okex->setProxy();
-
-//More flexible Settings
-$okex->setProxy([
-    'http'  => 'http://127.0.0.1:12333',
-    'https' => 'http://127.0.0.1:12333',
+//You can set special needs
+$okex->setOptions([
+    //Set the request timeout to 60 seconds by default
+    'timeout'=>10,
+    
+    //If you are developing locally and need an agent, you can set this
+    'proxy'=>true,
+    //More flexible Settings
+    /* 'proxy'=>[
+     'http'  => 'http://127.0.0.1:12333',
+     'https' => 'http://127.0.0.1:12333',
+     'no'    =>  ['.cn']
+     ], */
+    //Close the certificate
+    //'verify'=>false,
 ]);
 
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.

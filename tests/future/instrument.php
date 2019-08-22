@@ -15,10 +15,27 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 $okex=new OkexFuture();
 
+//You can set special needs
+$okex->setOptions([
+    //Set the request timeout to 60 seconds by default
+    'timeout'=>10,
+    
+    //If you are developing locally and need an agent, you can set this
+    'proxy'=>true,
+    //More flexible Settings
+    /* 'proxy'=>[
+     'http'  => 'http://127.0.0.1:12333',
+     'https' => 'http://127.0.0.1:12333',
+     'no'    =>  ['.cn']
+     ], */
+    //Close the certificate
+    //'verify'=>false,
+]);
+
 //List all contracts. This request does not support pagination. The full list will be returned for a request.
 try {
     $result=$okex->instrument()->getBook([
-        'instrument_id'=>'BTC-USD-190628',
+        'instrument_id'=>'BTC-USD-190927',
         'size'=>20,
     ]);
     print_r($result);
