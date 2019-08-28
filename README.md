@@ -25,7 +25,7 @@ Many interfaces are not yet complete, and users can continue to extend them base
 composer require "linwj/okex dev-master"
 ```
 
-Local development sets the proxy [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
+Support for more request Settings [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
 ```php
 $okex=new OkexSpot();
 //You can set special needs
