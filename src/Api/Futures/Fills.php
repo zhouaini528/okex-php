@@ -5,13 +5,16 @@
 
 namespace Lin\Okex\Api\Futures;
 
+use Lin\Okex\Request;
 
-
-class Fills
+class Fills extends Request
 {
+    /**
+     * GET /api/futures/v3/fills
+     * */
     public function get(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/fills';
         $this->data=$data;
         return $this->exec();
     }
