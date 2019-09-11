@@ -31,7 +31,7 @@ $okex->setOptions([
      'no'    =>  ['.cn']
      ], */
     //Close the certificate
-    //'verify'=>false,
+    'verify'=>false,
 ]);
 
 //Get the information of holding positions of a contract.

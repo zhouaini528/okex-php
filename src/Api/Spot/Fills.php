@@ -5,14 +5,16 @@
 
 namespace Lin\Okex\Api\Spot;
 
+use Lin\Okex\Request;
 
-
-class Fills
+class Fills extends Request
 {
-    public function get(array $data){
+    /**
+     * GET /api/spot/v3/fills
+     * */
+    public function get(){
         $this->type='GET';
-        $this->path='';
-        $this->data=$data;
+        $this->path='/api/spot/v3/fills';
         return $this->exec();
     }
 }

@@ -27,30 +27,42 @@ class Instruments extends Request
         return $this->exec();
     }
     
+    /**
+     * GET /api/spot/v3/instruments/ticker
+     * */
     public function getTickerAll(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/spot/v3/instruments/ticker';
         $this->data=$data;
         return $this->exec();
     }
     
+    /**
+     * GET /api/spot/v3/instruments/<instrument-id>/ticker
+     * */
     public function getTicker(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/ticker';
         $this->data=$data;
         return $this->exec();
     }
     
+    /**
+    *GET /api/spot/v3/instruments/<instrument_id>/trades
+    * */
     public function getTrades(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/trades';
         $this->data=$data;
         return $this->exec();
     }
     
+    /**
+     *GET /api/spot/v3/instruments/<instrument_id>/candles
+     * */
     public function getCandles(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/candles';
         $this->data=$data;
         return $this->exec();
     }

@@ -36,9 +36,12 @@ class Orders extends Request
         return $this->exec();
     }
     
+    /**
+     * POST /api/futures/v3/orders
+     * */
     public function postBatch(array $data){
         $this->type='POST';
-        $this->path='';
+        $this->path='/api/futures/v3/orders';
         
         $this->data=$data;
         
@@ -65,16 +68,22 @@ class Orders extends Request
         return $this->exec();
     }
     
+    /**
+     * POST /api/futures/v3/cancel_batch_orders/<instrument_id>
+     * */
     public function postCancelBatch(array $data){
         $this->type='POST';
-        $this->path='';
+        $this->path='/api/futures/v3/cancel_batch_orders/'.$data['instrument_id'];
         $this->data=$data;
         return $this->exec();
     }
     
+    /**
+     *GET /api/futures/v3/orders/<instrument_id>
+     * */
     public function getAll(array $data){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/orders/'.$data['instrument_id'];
         $this->data=$data;
         return $this->exec();
     }

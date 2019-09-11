@@ -54,9 +54,12 @@ class Accounts extends Request
         return $this->exec();
     }
     
+    /**
+     * GET/api/futures/v3/accounts/<instrument_id>/holds
+     * */
     public function getHolds(array $data=[]){
         $this->type='GET';
-        $this->path='';
+        $this->path='/api/futures/v3/accounts/'.$data['instrument_id'].'/holds';
         
         $this->data=$data;
         
