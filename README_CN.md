@@ -22,7 +22,7 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 #### 安装方式
 ```
-composer require "linwj/okex dev-master"
+composer require linwj/okex
 ```
 
 支持本地开发代理设置 [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
