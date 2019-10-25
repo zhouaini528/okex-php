@@ -65,4 +65,14 @@ class Accounts extends Request
         
         return $this->exec();
     }
+    
+    /**
+     * POST /api/futures/v3/accounts/margin_mode
+     * */
+    public function postMarginMode(array $data){
+        $this->type='POST';
+        $this->path='/api/futures/v3/accounts/margin_mode';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

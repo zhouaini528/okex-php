@@ -23,7 +23,7 @@ $okex->setOptions([
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -33,6 +33,16 @@ $okex->setOptions([
     //Close the certificate
     //'verify'=>false,
 ]);
+
+try {
+    $result=$okex->account()->postMarginMode([
+        'currency'=>'trx',
+        'margin_mode'=>'crossed',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 
 //This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
 try {
