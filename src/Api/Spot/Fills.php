@@ -12,9 +12,11 @@ class Fills extends Request
     /**
      * GET /api/spot/v3/fills
      * */
-    public function get(){
+    public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/spot/v3/fills';
+        $this->data=$data;
+        
         return $this->exec();
     }
 }
