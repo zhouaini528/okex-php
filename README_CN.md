@@ -4,9 +4,9 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
-很多接口还未完善，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
+大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
-[中文文档](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md)
+[English](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
 ### 其他交易所API
 
