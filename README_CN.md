@@ -6,7 +6,7 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
-[English](https://github.com/zhouaini528/okex-php/blob/master/README.md)
+[English Document](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
 ### 其他交易所API
 
