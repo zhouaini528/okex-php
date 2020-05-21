@@ -20,6 +20,16 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+[Kucoin](https://github.com/zhouaini528/kucoin-php)
+
+[Mxc](https://github.com/zhouaini528/Mxc-php)
+
+[Coinbase](https://github.com/zhouaini528/coinbase-php)
+
+[ZB](https://github.com/zhouaini528/zb-php)
+
+[Bitfinex](https://github.com/zhouaini528/bitfinex-php)
+
 #### Installation
 ```
 composer require linwj/okex

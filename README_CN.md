@@ -20,6 +20,16 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+[Kucoin](https://github.com/zhouaini528/Kucoin-php)
+
+[Mxc](https://github.com/zhouaini528/mxc-php)
+
+[Coinbase](https://github.com/zhouaini528/coinbase-php)
+
+[ZB](https://github.com/zhouaini528/zb-php)
+
+[Bitfinex](https://github.com/zhouaini528/zb-php)
+
 #### 安装方式
 ```
 composer require linwj/okex
