@@ -9,6 +9,9 @@ use Lin\Okex\Request;
 
 class Instruments extends Request
 {
+    /**
+     * GET/api/spot/v3/instruments
+     * */
     public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/spot/v3/instruments';
@@ -17,6 +20,9 @@ class Instruments extends Request
         return $this->exec();
     }
     
+    /**
+     * GET/api/spot/v3/instruments/<instrument_id>/book
+     * */
     public function getBook(array $data){
         $this->type='GET';
         $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/book';
