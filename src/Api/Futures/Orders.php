@@ -25,7 +25,7 @@ class Orders extends Request
         leverage	Number	Yes	10x or 20x leverage
         order_type	string	No	Fill in number for parameter，0: Normal limit order (Unfilled and 0 represent normal limit order) 1: Post only 2: Fill Or Kill 3: Immediatel Or Cancel
      * */
-    public function post(array $data){
+    public function post(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/order';
         
@@ -39,7 +39,7 @@ class Orders extends Request
     /**
      * POST /api/futures/v3/orders
      * */
-    public function postBatch(array $data){
+    public function postBatch(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/orders';
         
@@ -57,7 +57,7 @@ class Orders extends Request
         client_oid	string	Yes	the order ID created by yourself, The client_oid type should be comprised of alphabets + numbers or only alphabets within 1 – 32 characters， both uppercase and lowercase letters are supported
 
      * */
-    public function postCancel(array $data){
+    public function postCancel(array $data=[]){
         $id=$data['order_id'] ?? $data['client_oid'];
         unset($data['order_id']);
         unset($data['client_oid']);
@@ -71,7 +71,7 @@ class Orders extends Request
     /**
      * POST /api/futures/v3/cancel_batch_orders/<instrument_id>
      * */
-    public function postCancelBatch(array $data){
+    public function postCancelBatch(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/cancel_batch_orders/'.$data['instrument_id'];
         $this->data=$data;
@@ -81,7 +81,7 @@ class Orders extends Request
     /**
      *GET /api/futures/v3/orders/<instrument_id>
      * */
-    public function getAll(array $data){
+    public function getAll(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/orders/'.$data['instrument_id'];
         $this->data=$data;
@@ -97,7 +97,7 @@ class Orders extends Request
         client_oid	string	Yes	The client_oid type should be comprised of alphabets + numbers or only alphabets within 1 – 32 characters， both uppercase and lowercase letters are supported
 
      * */
-    public function get(array $data){
+    public function get(array $data=[]){
         $id=$data['order_id'] ?? $data['client_oid'];
         unset($data['order_id']);
         unset($data['client_oid']);

@@ -22,7 +22,7 @@ class Accounts extends Request
     /**
      'currency'=>'BTC',   required
      * */
-    public function get(array $data){
+    public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/spot/v3/accounts/'.$data['currency'];
         unset($data['currency']);
@@ -38,7 +38,7 @@ class Accounts extends Request
      *  'form'                    optional
      *  'to'                        optional
      * */
-    public function getLedger(array $data){
+    public function getLedger(array $data=[]){
         $this->type='GET';
         $this->path='/api/spot/v3/accounts/'.$data['currency'].'/ledger';
         unset($data['currency']);

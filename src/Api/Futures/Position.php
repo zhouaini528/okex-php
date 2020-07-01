@@ -26,7 +26,7 @@ class Position extends Request
         Parameters	Parameters Types	Required	Description
         instrument_id	String	Yes	Contract ID, e.g.“BTC-USD-180213”
      * */
-    public function get(array $data){
+    public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/'.$data['instrument_id'].'/position';
         

@@ -12,7 +12,7 @@ class Fills extends Request
     /**
      * GET /api/futures/v3/fills
      * */
-    public function get(array $data){
+    public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/fills';
         $this->data=$data;

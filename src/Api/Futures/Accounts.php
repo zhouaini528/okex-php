@@ -31,7 +31,7 @@ class Accounts extends Request
         return $this->exec();
     }
     
-    public function getLeverage(array $data){
+    public function getLeverage(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/accounts/'.$data['currency'].'/leverage';
         
@@ -40,14 +40,14 @@ class Accounts extends Request
         return $this->exec();
     }
     
-    public function postLeverage(array $data){
+    public function postLeverage(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/accounts/'.$data['currency'].'/leverage';
         $this->data=$data;
         return $this->exec();
     }
     
-    public function getLedger(array $data){
+    public function getLedger(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/accounts/'.$data['currency'].'/ledger';
         $this->data=$data;
@@ -69,7 +69,7 @@ class Accounts extends Request
     /**
      * POST /api/futures/v3/accounts/margin_mode
      * */
-    public function postMarginMode(array $data){
+    public function postMarginMode(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/accounts/margin_mode';
         $this->data=$data;
