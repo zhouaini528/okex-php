@@ -10,6 +10,7 @@ use Lin\Okex\Api\Spot\Accounts;
 use Lin\Okex\Api\Spot\Fills;
 use Lin\Okex\Api\Spot\Instruments;
 use Lin\Okex\Api\Spot\Orders;
+use Lin\Okex\Api\Spot\Trade;
 
 class OkexSpot
 {
@@ -73,5 +74,12 @@ class OkexSpot
      * */
     public function order(){
         return  new Orders($this->init());
+    }
+    
+    /**
+     *
+     * */
+    public function trade(){
+        return  new Trade($this->init());
     }
 }
