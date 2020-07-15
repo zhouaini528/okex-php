@@ -86,7 +86,7 @@ class Orders extends Request
         unset($data['order_id']);
         unset($data['client_oid']);
         
-        if(empty($id)) $data['state']=2;
+        if(empty($id) && !isset($data['state'])) $data['state']=2;
         
         $this->type='GET';
         $this->path='/api/spot/v3/orders/'.$id;
