@@ -32,6 +32,8 @@ Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#R
 
 [Bittrex](https://github.com/zhouaini528/bittrex-php)
 
+[Gate](https://github.com/zhouaini528/gate-php)
+
 #### 安装方式
 ```
 composer require linwj/okex
