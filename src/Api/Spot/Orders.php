@@ -15,13 +15,13 @@ class Orders extends Request
     public function post(array $data=[]){
         $this->type='POST';
         $this->path='/api/spot/v3/orders';
-        
+
         $data['margin_trading']=1;
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * POST /api/spot/v3/batch_orders
      * */
@@ -31,7 +31,7 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * POST /api/spot/v3/cancel_orders/<order_id> or <client_oid>
      * */
@@ -39,15 +39,15 @@ class Orders extends Request
         $id=$data['order_id'] ?? $data['client_oid'];
         unset($data['order_id']);
         unset($data['client_oid']);
-        
+
         $this->type='POST';
         $this->path='/api/spot/v3/cancel_orders/'.$id;
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * POST /api/spot/v3/cancel_batch_orders
      * */
@@ -57,7 +57,7 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/spot/v3/orders
      * */
@@ -67,7 +67,7 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * GET/api/spot/v3/orders_pending
      * */
@@ -77,7 +77,7 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * GET/api/spot/v3/orders/<order_id> or /api/spot/v3/orders/<client_oid>
      * */
@@ -85,27 +85,27 @@ class Orders extends Request
         $id=$data['order_id'] ?? ($data['client_oid'] ?? '');
         unset($data['order_id']);
         unset($data['client_oid']);
-        
+
         if(empty($id) && !isset($data['state'])) $data['state']=2;
-        
+
         $this->type='GET';
         $this->path='/api/spot/v3/orders/'.$id;
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      *POST /api/spot/v3/order_algo
      * */
-    public function postAlgo(array $data=[]){
+    public function postOrderAlgo(array $data=[]){
         $this->type='POST';
         $this->path='/api/spot/v3/order_algo';
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *POST /api/spot/v3/cancel_batch_algos
      * */
@@ -115,7 +115,7 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET/api/spot/v3/algo
      * */
