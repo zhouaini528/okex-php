@@ -11,32 +11,28 @@ use Lin\Okex\Request;
 class Instruments extends Request
 {
     /**
-     * Get market data. This endpoint provides the snapshots of market data and can be used without verifications.
-     * */
+     * GET/api/futures/v3/instruments
+     */
     public function get(){
         $this->type='GET';
         $this->path='/api/futures/v3/instruments';
-        
+
         return $this->exec();
     }
-    
+
     /**
-     * List all contracts. This request does not support pagination. The full list will be returned for a request.
-     * 
-        Parameters	Parameters Types	Required	Description
-        instrument_id	String	Yes	Contract ID,e.g. “BTC-USD-180213”
-        size	Int	No	The size of the price range (max: 200)
-     * */
+     * GET/api/futures/v3/instruments/<instrument_id>/book
+     */
     public function getBook(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/instruments/'.$data['instrument_id'].'/book';
         unset($data['instrument_id']);
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * GET /api/futures/v3/instruments/ticker
      * */
@@ -45,7 +41,7 @@ class Instruments extends Request
         $this->path='/api/futures/v3/instruments/ticker';
         return $this->exec();
     }
-    
+
     /**
      * GET /api/futures/v3/instruments/<instrument_id>/ticker
      * */
@@ -55,7 +51,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument_id>/trades
      * */
@@ -65,7 +61,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument-id>/candles
      * */
@@ -75,7 +71,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET/api/futures/v3/instruments/<instrument_id>/index
      * */
@@ -85,7 +81,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument_id>/estimated_price
      * */
@@ -95,7 +91,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument_id>/open_interest
      * */
@@ -105,7 +101,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument_id>/price_limit
      * */
@@ -115,7 +111,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET/api/futures/v3/instruments/<instrument_id>/mark_price
      * */
@@ -125,13 +121,43 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/futures/v3/instruments/<instrument_id>/liquidation
      * */
     public function getLiquidation(array $data=[]){
         $this->type='GET';
         $this->path='/api/futures/v3/instruments/'.$data['instrument_id'].'/liquidation';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *GET /api/futures/v3/instruments/<instrument_id>/history/candles
+     * */
+    public function getHistoryCandles(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/futures/v3/instruments/'.$data['instrument_id'].'/history/candles';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *GET /api/futures/v3/rate
+     * */
+    public function getRate(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/futures/v3/rate';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *GET /api/futures/v3/settlement/history
+     * */
+    public function getSettlementHistory(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/futures/v3/settlement/history';
         $this->data=$data;
         return $this->exec();
     }

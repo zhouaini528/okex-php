@@ -14,7 +14,7 @@ class Orders extends Request
     /**
         OKEx token trading only supports limit and market orders (more order types will become available in the future). You can place an order only if you have enough funds.
         Once your order is placed, the amount will be put on hold.
-        
+
         Parameters	Parameters Types	Required	Description
         client_oid	string	No	the order ID customized by yourself , The client_oid type should be comprised of alphabets + numbers or only alphabets within 1 – 32 characters， both uppercase and lowercase letters are supported
         instrument_id	String	Yes	Contract ID,e.g. “TC-USD-180213”
@@ -28,27 +28,28 @@ class Orders extends Request
     public function post(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/order';
-        
+
         $data['leverage']=$data['leverage']??10;
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * POST /api/futures/v3/orders
      * */
     public function postBatch(array $data=[]){
         $this->type='POST';
         $this->path='/api/futures/v3/orders';
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
+     * POST /api/futures/v3/cancel_order/<instrument_id>/<order_id> or <client_oid>
      * Cancelling an unfilled order.
 
         Parameters	Parameters Types	Required	Description
@@ -61,13 +62,13 @@ class Orders extends Request
         $id=$data['order_id'] ?? $data['client_oid'];
         unset($data['order_id']);
         unset($data['client_oid']);
-        
+
         $this->type='POST';
         $this->path='/api/futures/v3/cancel_order/'.$data['instrument_id'].'/'.$id;
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * POST /api/futures/v3/cancel_batch_orders/<instrument_id>
      * */
@@ -77,7 +78,27 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
+    /**
+     *POST/api/futures/v3/amend_order/<instrument_id>
+     * */
+    public function postAmend(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/futures/v3/amend_order/'.$data['instrument_id'];
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *POST /api/futures/v3/amend_batch_orders/<instrument_id>
+     * */
+    public function postAmendBatch(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/futures/v3/amend_batch_orders/'.$data['instrument_id'];
+        $this->data=$data;
+        return $this->exec();
+    }
+
     /**
      *GET /api/futures/v3/orders/<instrument_id>
      * */
@@ -87,10 +108,13 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * Get order details
-     
+     *
+     * GET/api/futures/v3/orders/<instrument_id>/<order_id>
+     * GET/api/futures/v3/orders/<instrument_id>/<client_oid>
+
         Parameters	Parameters Types	Required	Description
         order_id	String	Yes	Order ID
         instrument_id	String	Yes	Contract ID,e.g.“BTC-USD-180213”
@@ -101,12 +125,22 @@ class Orders extends Request
         $id=$data['order_id'] ?? $data['client_oid'];
         unset($data['order_id']);
         unset($data['client_oid']);
-        
+
         $this->type='GET';
         $this->path='/api/futures/v3/orders/'.$data['instrument_id'].'/'.$id;
-        
+
         $this->data=$data;
-        
+
+        return $this->exec();
+    }
+
+    /**
+     *POST /api/futures/v3/cancel_all
+     * */
+    public function postCancelAll(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/futures/v3/cancel_all';
+        $this->data=$data;
         return $this->exec();
     }
 }
