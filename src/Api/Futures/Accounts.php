@@ -96,4 +96,14 @@ class Accounts extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /*
+     * GET/api/futures/v3/trade_fee
+     * */
+    public function getTradeFee(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/futures/v3/trade_fee';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

@@ -143,4 +143,34 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /*
+     *POST /api/futures/v3/order_algo
+     * */
+    public function postOrderAlgo(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/futures/v3/order_algo';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /*
+     *POST /api/futures/v3/cancel_algos
+     * */
+    public function postCancelAlgos(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/futures/v3/cancel_algos';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /*
+     *GET/api/futures/v3/order_algo/<instrument_id>
+     * */
+    public function getOrderAlgo(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/futures/v3/order_algo/'.$data['instrument_id'];
+        $this->data=$data;
+        return $this->exec();
+    }
 }
