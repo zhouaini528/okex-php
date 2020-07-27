@@ -12,10 +12,10 @@ class Fills extends Request
     /**
      * GET /api/swap/v3/fills
      * */
-    public function get(){
+    public function get(array $data=[]){
         $this->type='GET';
         $this->path='/api/swap/v3/fills';
-        
+
         return $this->exec();
     }
 }
