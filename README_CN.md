@@ -2,9 +2,9 @@
 
 Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#README)
 
-所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
+Okex 模拟交易API[https://www.okex.com/docs/zh/#change-20200630](https://www.okex.com/docs/zh/#change-20200630)，点击查看[演示用例]()
 
-大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
+所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
 [English Document](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
@@ -171,6 +171,67 @@ try {
     print_r($e->getMessage());
 }
 
+```
+
+### 模拟交易API
+```php
+$key = "09d4ed9e-6c2b-4652-9119-5c8eea078904";
+$secret = "AE06CAA53CAB76CACDEE6001ACDABB11";
+$passphrase = "test123";
+
+$okex=new OkexSpot($key,$secret,$passphrase);
+
+//You can set special needs
+$okex->setOptions([
+    'timeout'=>10,
+    'headers'=>['x-simulated-trading'=>1],
+]);
+
+try {
+    $result=$okex->instrument()->get();
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Place an Order
+try {
+    $result=$okex->order()->post([
+        'instrument_id'=>'MNBTC-MNUSDT',
+        'side'=>'buy',
+        'price'=>'100',
+        'size'=>'0.001',
+
+        //'type'=>'market',
+        //'notional'=>'100'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Get order details by order ID.
+try {
+    $result=$okex->order()->get([
+        'instrument_id'=>'MNBTC-MNUSDT',
+        'order_id'=>$result['order_id'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Cancelling an unfilled order.
+try {
+    $result=$okex->order()->postCancel([
+        'instrument_id'=>'MNBTC-MNUSDT',
+        'order_id'=>$result['order_id'],
+    ]);
+    print_r($result);
+}catch (\Exception $e) {
+    print_r(json_decode($e->getMessage(), true));
+}
 ```
 
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/spot)
