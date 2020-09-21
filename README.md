@@ -2,7 +2,7 @@
 
 Okex docs [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#README)
 
-Okex Simulation Test API [https://www.okex.me/docs/en/#change-20200630](https://www.okex.me/docs/en/#change-20200630),Click to view [Demo](https://github.com/zhouaini528/okex-php#simulation-test-api)
+Okex Simulation Test API [https://www.okex.com/docs/en/#change-20200630](https://www.okex.com/docs/en/#change-20200630),Click to view [Demo](https://github.com/zhouaini528/okex-php#simulation-test-api)
 
 All interface methods are initialized the same as those provided by okex. See details [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
