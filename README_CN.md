@@ -2,7 +2,7 @@
 
 Okex 文档地址 [https://www.okex.com/docs/en](https://www.okex.com/docs/en/#README)
 
-Okex 模拟交易API[https://www.okex.com/docs/zh/#change-20200630](https://www.okex.com/docs/zh/#change-20200630)，点击查看[演示用例]()
+Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www.okex.com/docs/zh/#change-20200630)，点击查看[演示用例](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93api)
 
 所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
