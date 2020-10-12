@@ -131,7 +131,7 @@ class Orders extends Request
      * */
     public function postCancelAlgos(array $data=[]){
         $this->type='POST';
-        $this->path='/api/swap/v3/cancel_batch_algos';
+        $this->path='/api/swap/v3/cancel_algos';
         $this->data=$data;
         return $this->exec();
     }
