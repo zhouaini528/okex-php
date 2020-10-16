@@ -66,11 +66,11 @@ class Instruments extends Request
     }
 
     /*
-     * GET/api/swap/v3/instruments/<instrument_id>/candle
+     * GET/api/swap/v3/instruments/<instrument_id>/candles
      * */
     public function getCandles(array $data=[]){
         $this->type='GET';
-        $this->path='/api/swap/v3/instruments/'.$data['instrument_id'].'/candle';
+        $this->path='/api/swap/v3/instruments/'.$data['instrument_id'].'/candles';
 
         $this->data=$data;
 
