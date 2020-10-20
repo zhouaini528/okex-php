@@ -5,18 +5,21 @@
 
 namespace Lin\Okex;
 
+use Lin\Okex\Api\WebSocket\SocketServer;
+use Lin\Okex\Api\WebSocket\SocketClient;
+
 
 class OkexWebSocket
 {
-    public function config(array $init=[]){
+    private $server=null;
+    private $client=null;
 
+    public function server(){
+        return $this->server = new SocketServer();
     }
 
-    public function subscribe(array $subscribe,$callback){
-
-    }
-
-    public function unsubscribe(array $subscribe,$callback){
-
+    public function client(){
+        if($this->client!==null) return $this->client;
+        return $this->client = new SocketClient();
     }
 }
