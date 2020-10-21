@@ -25,7 +25,7 @@ switch ($action){
 
     //subscribe
     case 1:{
-        $okex->client()->subscribe([
+        $okex->subscribe([
             'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
             'swap/depth5:BCH-USD-SWAP',
@@ -37,7 +37,7 @@ switch ($action){
 
     //unsubscribe
     case 2:{
-        $okex->client()->unsubscribe([
+        $okex->unsubscribe([
             'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
             'swap/depth5:BCH-USD-SWAP',
@@ -47,22 +47,57 @@ switch ($action){
         break;
     }
 
+    //**************private
     case 10:{
-        //****Three ways to get data
+        $okex->keysecret($key_secret[0]);
+        $okex->subscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+            'swap/depth5:BCH-USD-SWAP',
+
+            'futures/position:BCH-USD-210326',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
+        ]);
+        break;
+    }
+
+    case 11:{
+        $okex->keysecret([
+            'key'=>'xxxxxxxxx',
+            'secret'=>'xxxxxxxxx',
+            'passphrase'=>'xxxxxxxxx',
+        ]);
+        $okex->subscribe([
+            'spot/depth5:BTC-USDT',
+            'futures/depth5:BTC-USD-210326',
+            'swap/depth5:BTC-USD-SWAP',
+
+            'futures/position:BTC-USD-210326',
+            'swap/position:BTC-USD-SWAP',
+        ]);
+        break;
+    }
+
+    case 20:{
+        //****Three ways to get data,Specified channel acquisition
 
         //The first way
-        $data=$okex->client()->getSubscribeData();
+        $data=$okex->getSubscribe();
         print_r(json_encode($data));
 
+        die('222');
+
+
         //The second way callback
-        $okex->client()->getSubscribeData(function($data){
+        $okex->getSubscribe(function($data){
             print_r(json_encode($data));
         });
 
         //The third way is to guard the process
-        $okex->client()->getSubscribeData(function($data){
+        $okex->getSubscribe(function($data){
             print_r(json_encode($data));
-        },true);
+        },[],true);
 
         break;
     }

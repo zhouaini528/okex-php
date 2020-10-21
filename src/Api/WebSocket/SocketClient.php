@@ -6,12 +6,15 @@
 namespace Lin\Okex\Api\WebSocket;
 
 use Lin\Okex\Api\WebSocket\SocketGlobal;
+use Lin\Okex\Api\WebSocket\SocketFunction;
+
 use Workerman\Lib\Timer;
 use Workerman\Worker;
 
 class SocketClient
 {
     use SocketGlobal;
+    use SocketFunction;
 
     function __construct()
     {
@@ -35,68 +38,64 @@ class SocketClient
         return $this;
     }
 
+    /**
+     * @param array $sub
+     */
     public function subscribe(array $sub=[]){
         $this->client->add_sub=$this->resub($sub);
     }
 
+    /**
+     * @param array $sub
+     */
     public function unsubscribe(array $sub=[]){
         $this->client->del_sub=$this->resub($sub);
     }
 
-    public function getSubscribeData($callback=null,$daemon=false){
-        if($daemon) $this->daemon($callback);
+    /**
+     * @param array $sub    默认获取所有public订阅的数据，private数据需要设置keysecret
+     * @param null $callback
+     * @param bool $daemon
+     * @return mixed
+     */
+    public function getSubscribe($callback=null,$sub=[],$daemon=false){
+        if($daemon) $this->daemon($callback,$sub);
 
-        return $this->getData($this->client,$callback);
+        return $this->getData($this,$callback,$sub);
     }
 
-    protected function daemon($callback=null){
+    protected function daemon($callback=null,$sub=[]){
         $worker = new Worker();
-        $worker->onWorkerStart = function() use($callback) {
-            $client = $this->client()->client;
-            Timer::add(0.1, function() use ($client,$callback){
-                $this->getData($client,$callback);
+        $worker->onWorkerStart = function() use($callback,$sub) {
+            $global = $this->client();
+
+            Timer::add(0.1, function() use ($global,$callback,$sub){
+                $this->getData($global,$callback,$sub);
             });
         };
         Worker::runAll();
     }
 
-    protected function getData($client,$callback=null){
-        $all_sub=$client->all_sub;
+    protected function getData($global,$callback=null,$sub=[]){
+        $all_sub=$global->get('all_sub');
+        print_r($all_sub);
 
+        $temp=[];
         foreach ($all_sub as $k=>$v){
             if(is_array($v)) $table=$k;
             else $table=$v;
-            $table=strtolower($table);
 
-            $data=$client->$table;
-
+            $data=$global->get(strtolower($table));
             if(empty($data)) continue;
 
-            if($callback!==null){
-                call_user_func_array($callback, array($data));
-            }else{
-                return $data;
-            }
-        }
-    }
-
-    /**
-     * 标记订阅的频道是否需要有登陆的KEY
-     */
-    protected function resub(array $sub=[]){
-        $new_sub=[];
-        $temp1=['account','position','order'];
-        foreach ($sub as $v) {
-            $temp2=[$v];
-            foreach ($temp1 as $tv){
-                if(strpos($v, $tv) !== false){
-                    array_push($temp2,$this->keysecret);
-                }
-            }
-            array_push($new_sub,$temp2);
+            $temp[$table]=$data;
         }
 
-        return $new_sub;
+        if($callback!==null){
+            call_user_func_array($callback, array($temp));
+        }
+
+        return $temp;
     }
 
     function test(){

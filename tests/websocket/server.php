@@ -14,5 +14,5 @@ use Lin\Okex\OkexWebSocket;
 require __DIR__ .'../../../vendor/autoload.php';
 
 $okex=new OkexWebSocket();
-$okex->server()->start();
+$okex->start();
 

@@ -95,6 +95,10 @@ trait SocketGlobal
         while(!$this->client->cas('keysecret', $old_client_keysecret, $new_client_keysecret));
     }
 
+    protected function save(){
+
+    }
+
     protected function keysecretInit($keysecret){
         do {
             $old_value = $new_value = $this->client->keysecret;
