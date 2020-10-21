@@ -13,13 +13,17 @@ trait SocketGlobal
     protected $server;
     protected $client;
 
+    private $config=[];
+
     protected function server(){
-        $this->server=new Server('0.0.0.0',2207);
+        $address=isset($this->config['global']) ? explode(':',$this->config['global']) : ['0.0.0.0','2207'];
+        $this->server=new Server($address[0],$address[1]);
         return $this;
     }
 
     protected function client(){
-        $this->client=new Client('0.0.0.0:2207');
+        $address=isset($this->config['global']) ? $this->config['global'] : '0.0.0.0:2207';
+        $this->client=new Client($address);
         return $this;
     }
 

@@ -16,8 +16,13 @@ class SocketClient
     use SocketGlobal;
     use SocketFunction;
 
-    function __construct()
+    private $config=[];
+
+
+    function __construct(array $config=[])
     {
+        $this->config=$config;
+
         $this->client();
 
         //初始化全局变量
@@ -58,27 +63,27 @@ class SocketClient
      * @param bool $daemon
      * @return mixed
      */
-    public function getSubscribe($callback=null,$sub=[],$daemon=false){
-        if($daemon) $this->daemon($callback,$sub);
+    public function getSubscribe($callback=null,$daemon=false){
+        if($daemon) $this->daemon($callback);
 
-        return $this->getData($this,$callback,$sub);
+        return $this->getData($this,$callback);
     }
 
-    protected function daemon($callback=null,$sub=[]){
+    protected function daemon($callback=null){
         $worker = new Worker();
-        $worker->onWorkerStart = function() use($callback,$sub) {
+        $worker->onWorkerStart = function() use($callback) {
             $global = $this->client();
 
-            Timer::add(0.1, function() use ($global,$callback,$sub){
-                $this->getData($global,$callback,$sub);
+            Timer::add(0.1, function() use ($global,$callback){
+                $this->getData($global,$callback);
             });
         };
         Worker::runAll();
     }
 
-    protected function getData($global,$callback=null,$sub=[]){
+    protected function getData($global,$callback=null){
         $all_sub=$global->get('all_sub');
-        print_r($all_sub);
+        if(empty($all_sub)) return [];
 
         $temp=[];
         foreach ($all_sub as $k=>$v){

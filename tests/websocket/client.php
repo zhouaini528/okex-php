@@ -17,6 +17,11 @@ include 'key_secret.php';
 
 $okex=new OkexWebSocket();
 
+$okex->config([
+    'global'=>'127.0.0.1:2208',
+    'log'=>true,
+]);
+
 $action=intval($_GET['action'] ?? 0);//http pattern
 if(empty($action)) $action=intval($argv[1]);//cli pattern
 
@@ -62,7 +67,23 @@ switch ($action){
         break;
     }
 
+    //unsubscribe
     case 11:{
+        $okex->keysecret($key_secret[0]);
+        $okex->unsubscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+            'swap/depth5:BCH-USD-SWAP',
+
+            'futures/position:BCH-USD-210326',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
+        ]);
+
+        break;
+    }
+
+    case 15:{
         $okex->keysecret([
             'key'=>'xxxxxxxxx',
             'secret'=>'xxxxxxxxx',
@@ -80,13 +101,11 @@ switch ($action){
     }
 
     case 20:{
-        //****Three ways to get data,Specified channel acquisition
+        //****Three ways to get all data
 
         //The first way
         $data=$okex->getSubscribe();
         print_r(json_encode($data));
-
-        die('222');
 
 
         //The second way callback
@@ -97,13 +116,36 @@ switch ($action){
         //The third way is to guard the process
         $okex->getSubscribe(function($data){
             print_r(json_encode($data));
-        },[],true);
+        },true);
 
         break;
     }
 
     case 99:{
         $okex->client()->test();
+        break;
+    }
+
+    //Simulation error message
+    case 10001:{
+        $okex->subscribe([
+            'spot/depth5:BCH-USDT-xx',
+        ]);
+        break;
+    }
+
+    case 10002:{
+        $okex->keysecret([
+            'key'=>'xxxxxxxxx',
+            'secret'=>'xxxxxxxxx',
+            'passphrase'=>'xxxxxxxxx',
+        ]);
+        $okex->subscribe([
+            'swap/depth5:BTC-USD-SWAP-xxx',
+
+            'futures/position:BTC-USD-210326',
+            'swap/position:BTC-USD-SWAP',
+        ]);
         break;
     }
 }

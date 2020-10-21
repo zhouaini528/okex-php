@@ -50,6 +50,7 @@ trait SocketFunction
      */
     protected function errorMessage($global,$tag,$data,$keysecret=''){
         $all_sub=$global->get('all_sub');
+        if(empty($all_sub)) return;
 
         if($tag=='public') {
             //查询 message 是否包含了关键词。并把错误信息写入频道记录
@@ -58,11 +59,28 @@ trait SocketFunction
                 if(stristr(strtolower($data['message']),$v)!==false) $global->add($sub,$data);
             }
         }else{
-            foreach ($all_sub as $k=>$v){
-                if(count($v)==1) continue;
+            //如果是用户单独订阅，则该用户所有相关的订阅都显示该错误
+            /*foreach ($all_sub as $k=>$v){
+                if(!is_array($v)) continue;
                 $sub=strtolower($v[0]);
-                if(stristr(strtolower($data['message']),$v)!==false) $global->add($keysecret['key'].$sub,$data);
-            }
+                $global->add($keysecret['key'].$sub,$data);
+            }*/
         }
+    }
+
+    protected function log($message){
+        if (!is_string($message)) $message=json_encode($message);
+
+        $time=time();
+        $tiemdate=date('Y-m-d H:i:s',$time);
+
+        $message=$tiemdate.' '.$message.PHP_EOL;
+
+        if(isset($this->config['log']) && $this->config['log']){
+            $filename=date('Y-m-d',$time).'.txt';
+            file_put_contents($filename,$message,FILE_APPEND);
+        }
+
+        echo $message;
     }
 }

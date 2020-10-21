@@ -20,6 +20,12 @@ class SocketServer
 
     private $connection=[];
     private $connectionIndex=0;
+    private $config=[];
+
+    function __construct(array $config=[])
+    {
+        $this->config=$config;
+    }
 
     public function start(){
         $this->worker = new Worker();
@@ -73,9 +79,9 @@ class SocketServer
                 'args' => [$keysecret['key'], $keysecret['passphrase'], $timestamp, $sign]
             ]);
 
-            echo $keysecret['key'].' new connect send'.PHP_EOL;
-
             $con->send($data);
+
+            $this->log($keysecret['key'].' new connect send');
         };
     }
 
@@ -97,8 +103,7 @@ class SocketServer
             if(isset($data['event'])) {
                 if($data['event']=='error') {
 
-                    print_r($data);
-                    echo PHP_EOL;
+                    $this->log($data);
 
                     $this->errorMessage($global,$con->tag,$data,isset($con->tag_keysecret)?$con->tag_keysecret:'');
 
@@ -107,8 +112,7 @@ class SocketServer
             }
 
             if(isset($data['success'])) {
-                print_r($data);
-                echo PHP_EOL;
+                $this->log($data);
 
                 //******登陆成功后，keysecret  private 状态
                 $keysecret=$con->tag_keysecret;
@@ -140,7 +144,7 @@ class SocketServer
         Timer::add(20, function() use ($con) {
             $con->send("ping");
 
-            echo $con->tag.' ping'.PHP_EOL;
+            $this->log($con->tag.' send ping');
         });
     }
 
@@ -150,7 +154,7 @@ class SocketServer
 
             $this->unsubscribe($con,$global);
 
-            echo  'listen '.$con->tag.PHP_EOL;
+            $this->log('listen '.$con->tag);
         });
     }
 
@@ -186,7 +190,7 @@ class SocketServer
 
         //公共连接 标记订阅频道是否有改变。
         if(empty($sub['public'])) {
-            echo 'public return '.PHP_EOL;
+            $this->log('public dont change return');
             return;
         }
 
@@ -198,11 +202,9 @@ class SocketServer
         ];
 
         $data=json_encode($data);
-
-        print_r($data);
-        echo 'public subscribe send'.PHP_EOL;
-
         $con->send($data);
+
+        $this->log('public subscribe send');
 
         //*******订阅成功后，删除add_sub  public 值
         $global->addSubUpdate('public');
@@ -222,7 +224,7 @@ class SocketServer
         }
 
         if(empty($sub)) {
-            echo 'subscribePrivate return'.PHP_EOL;
+            $this->log('subscribe private return');
             return;
         }
 
@@ -230,11 +232,9 @@ class SocketServer
         $client_keysecret=$global->get('keysecret');
         $keysecret=$con->tag_keysecret;
         if($client_keysecret[$keysecret['key']]['login']!=1) {
-            echo 'subscribePrivate no login return'.$keysecret['key'].PHP_EOL;
+            $this->log('subscribe private dont login return '.$keysecret['key']);
             return;
         }
-
-        echo $keysecret['key'].json_encode($sub).PHP_EOL;
 
         $data=[
             'op' => "subscribe",
@@ -242,11 +242,9 @@ class SocketServer
         ];
 
         $data=json_encode($data);
-
-        print_r($data);
-        echo 'private subscribe send '.$keysecret['key'].PHP_EOL;
-
         $con->send($data);
+
+        $this->log('private subscribe send '.$keysecret['key']);
 
         //*******订阅成功后，删除add_sub   值
         $global->addSubUpdate('private',['user_key'=>$keysecret['key']]);
@@ -279,7 +277,7 @@ class SocketServer
         }
 
         if(empty($unsub)) {
-            echo 'unsubscribePublic return'.PHP_EOL;
+            $this->log('unsubscribe public return');
             return;
         }
 
@@ -290,12 +288,9 @@ class SocketServer
         ];
 
         $data=json_encode($data);
-
-        print_r($data);
-        echo 'public unsubscribe send'.PHP_EOL;
-
         $con->send($data);
 
+        $this->log('public unsubscribe send');
 
         //*******订阅成功后，删除del_sub  public 值
         $global->delSubUpdate('public');
@@ -317,11 +312,9 @@ class SocketServer
         }
 
         if(empty($unsub)) {
-            echo 'unsubscribePrivate return'.PHP_EOL;
+            $this->log('unsubscribe private return');
             return;
         }
-
-        echo $keysecret['key'].json_encode($unsub).PHP_EOL;
 
         $data=[
             'op' => "unsubscribe",
@@ -329,12 +322,9 @@ class SocketServer
         ];
 
         $data=json_encode($data);
-
-        print_r($data);
-        echo 'private unsubscribe send '.$keysecret['key'].PHP_EOL;
-
         $con->send($data);
 
+        $this->log('private unsubscribe send '.$keysecret['key']);
 
         //*******订阅成功后，删除add_sub   值
         $global->delSubUpdate('private',['user_key'=>$keysecret['key']]);
@@ -347,17 +337,16 @@ class SocketServer
         //判断是否已经登陆
         $old_client_keysecret=$global->get('keysecret');
         if($old_client_keysecret[$keysecret['key']]['login']==1) {
-            echo 'private already login return'.$keysecret['key'].PHP_EOL;
+            $this->log('private already login return '.$keysecret['key']);
             return;
         }
 
         if($old_client_keysecret[$keysecret['key']]['login']==2) {
-            echo 'private doing return'.$keysecret['key'].PHP_EOL;
+            $this->log('private doing return '.$keysecret['key']);
             return;
         }
 
-        echo 'private new connection'.PHP_EOL;
-
+        $this->log('private new connection '.$keysecret['key']);
 
         //**********如果登陆失败，事件监听会再次 执行轮询 创建新连接，所以必须要有正在登陆中的状态标记
         $global->keysecretUpdate($keysecret['key'],2);

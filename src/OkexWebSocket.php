@@ -13,14 +13,19 @@ class OkexWebSocket
 {
     private $server=null;
     private $client=null;
+    private $config=[];
+
+    public function config(array $config=[]){
+        $this->config=$config;
+    }
 
     public function server(){
-        return $this->server = new SocketServer();
+        return $this->server = new SocketServer($this->config);
     }
 
     public function client(){
         if($this->client!==null) return $this->client;
-        return $this->client = new SocketClient();
+        return $this->client = new SocketClient($this->config);
     }
 
     public function start(){
@@ -39,7 +44,7 @@ class OkexWebSocket
         $this->client()->unsubscribe($sub);
     }
 
-    public function getSubscribe($callback=null,$sub=[],$daemon=false){
-        return $this->client()->getSubscribe($callback,$sub,$daemon);
+    public function getSubscribe($callback=null,$daemon=false){
+        return $this->client()->getSubscribe($callback,$daemon);
     }
 }
