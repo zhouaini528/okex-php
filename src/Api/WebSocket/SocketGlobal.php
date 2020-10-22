@@ -39,7 +39,8 @@ trait SocketGlobal
     }
 
     protected function save($key,$value){
-        $this->client->$key=$value;
+        if(!isset($this->client->$key)) $this->add($key,$value);
+        else $this->client->$key=$value;
     }
 
     protected function addSubUpdate($type='public',$data=[]){

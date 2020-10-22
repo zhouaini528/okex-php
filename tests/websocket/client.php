@@ -174,5 +174,24 @@ switch ($action){
         ]);
         break;
     }
+
+    case 10004:{
+        //$a='futures/position:bch-usd-210326';
+        //print_r($okex->client()->$a);
+        /*$data=$okex->getSubscribe();
+        print_r(json_encode($data));*/
+        $okex->client()->test2();
+
+        break;
+    }
+
+    case 10005:{
+        $okex->keysecret($key_secret[0]);
+        $okex->subscribe([
+            'futures/position:BCH-USD-210326',
+        ]);
+        break;
+    }
 }
+
 

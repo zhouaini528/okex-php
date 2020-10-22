@@ -118,4 +118,14 @@ class SocketClient
         print_r($this->client->keysecret);
         print_r($this->client->global_key);
     }
+
+    function test2(){
+        //print_r($this->client->global_key);
+        $global_key=$this->client->global_key;
+        foreach ($global_key as $k=>$v){
+            echo $k.PHP_EOL;
+            print_r($this->client->$v);
+
+        }
+    }
 }

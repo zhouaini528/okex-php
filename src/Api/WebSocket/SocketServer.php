@@ -70,7 +70,7 @@ class SocketServer
         return function($con) use($keysecret){
             if(empty($keysecret)) return;
 
-            $timestamp=round(microtime(true)*1000)/1000+10;
+            $timestamp=round(microtime(true)*1000)/1000;
 
             $message = $timestamp.'GET/users/self/verify';
             $sign=base64_encode(hash_hmac('sha256', $message, $keysecret['secret'], true));
@@ -94,20 +94,27 @@ class SocketServer
             if(isset($data['table'])) {
                 $table=$data['table'].':'.$this->getInstrumentId($data);
                 $table=strtolower($table);
-                if($con->tag=='private') $table=$con->tag_keysecret['key'].$table;
+
+                if($con->tag != 'public') $table=$con->tag_keysecret['key'].$table;
 
                 $global->save($table,$data);
                 return;
             }
 
             if(isset($data['event'])) {
+                $this->log($data);
+                $this->log('event '.$data['event']);
+
                 if($data['event']=='error') {
-
-                    $this->log($data);
-
                     $this->errorMessage($global,$con->tag,$data,isset($con->tag_keysecret)?$con->tag_keysecret:'');
-
                     return ;
+                }
+
+                if($data['event']=='subscribe'){
+                    return;
+                }
+                if($data['event']=='event unsubscribe'){
+                    return;
                 }
             }
 
