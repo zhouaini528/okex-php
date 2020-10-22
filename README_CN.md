@@ -6,6 +6,8 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
+[支持Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
+
 [English Document](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
 ### 其他交易所API
@@ -492,8 +494,149 @@ try {
 ```
 
 
-
-
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
 
 [更多API请查看](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
+
+
+### Websocket
+
+Websocket有两个服务server和client，server负责处理交易所新连接、数据接收、认证登陆等等。client负责获取数据、处理数据。
+
+Server端初始化，必须在cli模式下开启。
+```php
+use Lin\Okex\OkexWebSocket;
+require __DIR__ .'./vendor/autoload.php';
+
+$okex=new OkexWebSocket();
+
+$okex->config([
+    //是否开启日志,默认未开启 false
+    'log'=>true,
+
+    //进程服务端口地址,默认 0.0.0.0:2207
+    //'global'=>'127.0.0.1:2208',
+
+    //心跳时间,默认 20 秒
+    //'ping_time'=>20,
+
+    //订阅新的频道监控时间, 默认 2 秒
+    //'listen_time'=>2,
+
+    //频道数据更新时间,默认 0.1 秒
+    //'data_time'=>0.1,
+]);
+
+$okex->start();
+```
+
+如果你要测试，你可以 php server.php start 可以在终端即时输出日志。
+
+如果你要部署，你可以 php server.php start -d  开启常驻进程模式，并开启'log'=>true 查看日志。
+
+[更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/server.php)
+
+
+Client端初始化。
+```php
+$okex=new OkexWebSocket();
+
+$okex->config([
+    //是否开启日志,默认未开启 false
+    'log'=>true,
+
+    //进程服务端口地址,默认 0.0.0.0:2207
+    //'global'=>'127.0.0.1:2208',
+
+    //心跳时间,默认 20 秒
+    //'ping_time'=>20,
+
+    //订阅新的频道监控时间, 默认 2 秒
+    //'listen_time'=>2,
+
+    //频道数据更新时间,默认 0.1 秒
+    //'data_time'=>0.1,
+]);
+```
+
+频道订阅
+```php
+//你可以只订阅公共频道
+$okex->subscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+]);
+
+//你也可以私人频道与公共频道混合订阅
+$okex->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$okex->subscribe([
+    //public
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+    
+    //private
+    'futures/position:BCH-USD-210326',
+    'futures/account:BCH-USDT',
+    'swap/position:BCH-USD-SWAP',
+]);
+```
+
+频道订阅取消
+```php
+//取消订阅公共频道
+$okex->unsubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+]);
+
+//取消私人频道与公共频道混合订阅
+$okex->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$okex->unsubscribe([
+    //public
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+    
+    //private
+    'futures/position:BCH-USD-210326',
+    'futures/account:BCH-USDT',
+    'swap/position:BCH-USD-SWAP',
+]);
+```
+
+频道数据获取，有三种方式
+```php
+
+//第一种方式，直接获取当前最新数据
+$data=$okex->getSubscribe();
+print_r(json_encode($data));
+
+
+//第二种方式，通过回调函数，获取当前最新数据
+$okex->getSubscribe(function($data){
+    print_r(json_encode($data));
+});
+
+//第二种方式，通过回调函数并开启常驻进程，获取当前最新数据
+$okex->getSubscribe(function($data){
+    print_r(json_encode($data));
+},true);
+```
+[更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
+
+

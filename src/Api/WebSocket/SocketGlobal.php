@@ -27,6 +27,18 @@ trait SocketGlobal
         return $this;
     }
 
+    protected function init(){
+        //初始化全局变量
+        $this->add('all_sub',[]);//目前总共订阅的频道
+
+        $this->add('add_sub',[]);//正在订阅的频道
+
+        $this->add('del_sub',[]);//正在删除的频道
+
+        $this->add('keysecret',[]);//目前总共key
+
+        $this->add('global_key',[]);//保存全局变量key
+    }
 
     protected function add($key,$value){
         $this->client->$key=$value;
@@ -36,7 +48,6 @@ trait SocketGlobal
         if(!isset($this->client->$key) || empty($this->client->$key)) return '';
         return $this->client->$key;
     }
-
 
     protected function addSubUpdate($type='public',$data=[]){
         do{

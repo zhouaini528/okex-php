@@ -25,6 +25,8 @@ class SocketServer
     function __construct(array $config=[])
     {
         $this->config=$config;
+
+        $this->init();
     }
 
     public function start(){
@@ -141,6 +143,8 @@ class SocketServer
     }
 
     private function ping($con){
+        $time=isset($this->config['ping_time']) ? $this->config['ping_time'] : 20 ;
+
         Timer::add(20, function() use ($con) {
             $con->send("ping");
 
@@ -149,7 +153,9 @@ class SocketServer
     }
 
     private function other($con,$global){
-        Timer::add(2, function() use($con,$global) {
+        $time=isset($this->config['listen_time']) ? $this->config['listen_time'] : 2 ;
+
+        Timer::add($time, function() use($con,$global) {
             $this->subscribe($con,$global);
 
             $this->unsubscribe($con,$global);
@@ -336,6 +342,11 @@ class SocketServer
     private function login($global,$keysecret){
         //判断是否已经登陆
         $old_client_keysecret=$global->get('keysecret');
+        if(empty($old_client_keysecret)) {
+            $this->log('private no value keysecret return ');
+            return;
+        }
+
         if($old_client_keysecret[$keysecret['key']]['login']==1) {
             $this->log('private already login return '.$keysecret['key']);
             return;

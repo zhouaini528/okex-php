@@ -18,8 +18,20 @@ include 'key_secret.php';
 $okex=new OkexWebSocket();
 
 $okex->config([
-    'global'=>'127.0.0.1:2208',
+    //Do you want to enable local logging,default false
     'log'=>true,
+
+    //Daemons address and port,default 0.0.0.0:2207
+    //'global'=>'127.0.0.1:2208',
+
+    //Heartbeat time,default 20 seconds
+    //'ping_time'=>20,
+
+    //Channel subscription monitoring time,2 seconds
+    //'listen_time'=>2,
+
+    //Channel data update time,0.1 seconds
+    //'data_time'=>0.1,
 ]);
 
 $action=intval($_GET['action'] ?? 0);//http pattern
@@ -53,6 +65,7 @@ switch ($action){
     }
 
     //**************private
+    //subscribe
     case 10:{
         $okex->keysecret($key_secret[0]);
         $okex->subscribe([
@@ -142,6 +155,19 @@ switch ($action){
         ]);
         $okex->subscribe([
             'swap/depth5:BTC-USD-SWAP-xxx',
+
+            'futures/position:BTC-USD-210326',
+            'swap/position:BTC-USD-SWAP',
+        ]);
+        break;
+    }
+
+    case 10003:{
+        $okex->subscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+            'swap/depth5:BCH-USD-SWAP',
+            'option/depth5:BTCUSD-20201021-11750-C',
 
             'futures/position:BTC-USD-210326',
             'swap/position:BTC-USD-SWAP',

@@ -24,15 +24,6 @@ class SocketClient
         $this->config=$config;
 
         $this->client();
-
-        //初始化全局变量
-        $this->client->add('all_sub',[]);//目前总共订阅的频道
-
-        $this->client->add('add_sub',[]);//正在订阅的频道
-
-        $this->client->add('del_sub',[]);//正在删除的频道
-
-        $this->client->add('keysecret',[]);//目前总共key
     }
 
     function keysecret(array $keysecret=[]){
@@ -74,7 +65,9 @@ class SocketClient
         $worker->onWorkerStart = function() use($callback) {
             $global = $this->client();
 
-            Timer::add(0.1, function() use ($global,$callback){
+            $time=isset($this->config['data_time']) ? $this->config['data_time'] : 0.1 ;
+
+            Timer::add($time, function() use ($global,$callback){
                 $this->getData($global,$callback);
             });
         };
