@@ -55,6 +55,7 @@ trait SocketFunction
         if($tag=='public') {
             //查询 message 是否包含了关键词。并把错误信息写入频道记录
             foreach ($all_sub as $k=>$v){
+                if(is_array($v)) continue;
                 $sub=strtolower($v);
                 if(stristr(strtolower($data['message']),$v)!==false) $global->add($sub,$data);
             }

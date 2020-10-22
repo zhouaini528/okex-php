@@ -210,6 +210,7 @@ class SocketServer
         $data=json_encode($data);
         $con->send($data);
 
+        $this->log($data);
         $this->log('public subscribe send');
 
         //*******订阅成功后，删除add_sub  public 值
@@ -250,6 +251,7 @@ class SocketServer
         $data=json_encode($data);
         $con->send($data);
 
+        $this->log($data);
         $this->log('private subscribe send '.$keysecret['key']);
 
         //*******订阅成功后，删除add_sub   值
@@ -296,6 +298,7 @@ class SocketServer
         $data=json_encode($data);
         $con->send($data);
 
+        $this->log($data);
         $this->log('public unsubscribe send');
 
         //*******订阅成功后，删除del_sub  public 值
@@ -330,6 +333,7 @@ class SocketServer
         $data=json_encode($data);
         $con->send($data);
 
+        $this->log($data);
         $this->log('private unsubscribe send '.$keysecret['key']);
 
         //*******订阅成功后，删除add_sub   值
