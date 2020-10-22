@@ -6,6 +6,8 @@ Okex Simulation Test API [https://www.okex.com/docs/en/#change-20200630](https:/
 
 All interface methods are initialized the same as those provided by okex. See details [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
+Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
+
 [中文文档](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md)
 
 ### Other exchanges API
@@ -14,7 +16,7 @@ All interface methods are initialized the same as those provided by okex. See de
 
 [Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://github.com/zhouaini528/okex-php)
+[Okex](https://github.com/zhouaini528/okex-php) Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
@@ -500,3 +502,141 @@ try {
 [More Test](https://github.com/zhouaini528/okex-php/tree/master/tests/future)
 
 [More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
+
+### Websocket
+
+Websocket has two services, server and client. The server is responsible for dealing with the new connection of the exchange, data receiving, authentication and login, etc. Client is responsible for obtaining and processing data.
+
+Server initialization must be started in cli mode.
+```php
+use Lin\Okex\OkexWebSocket;
+require __DIR__ .'./vendor/autoload.php';
+
+$okex=new OkexWebSocket();
+
+$okex->config([
+    //Do you want to enable local logging,default false
+    'log'=>true,
+
+    //Daemons address and port,default 0.0.0.0:2207
+    //'global'=>'127.0.0.1:2208',
+
+    //Heartbeat time,default 20 seconds
+    //'ping_time'=>20,
+
+    //Channel subscription monitoring time,2 seconds
+    //'listen_time'=>2,
+
+    //Channel data update time,0.1 seconds
+    //'data_time'=>0.1,
+]);
+
+$okex->start();
+```
+
+If you want to test, you can "php server.php start" immediately outputs the log at the terminal.
+
+If you want to deploy, you can "php server.php start -d" enables resident process mode, and enables "log=>true" to view logs.
+
+[More Test](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/server.php)
+
+Client side initialization.
+```php
+$okex=new OkexWebSocket();
+
+$okex->config([
+    //Do you want to enable local logging,default false
+    'log'=>true,
+
+    //Daemons address and port,default 0.0.0.0:2207
+    //'global'=>'127.0.0.1:2208',
+
+    //Heartbeat time,default 20 seconds
+    //'ping_time'=>20,
+
+    //Channel subscription monitoring time,2 seconds
+    //'listen_time'=>2,
+
+    //Channel data update time,0.1 seconds
+    //'data_time'=>0.1,
+]);
+```
+
+Subscribe
+```php
+//You can only subscribe to public channels
+$okex->subscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+]);
+
+//You can also subscribe to both private and public channels
+$okex->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$okex->subscribe([
+    //public
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+    
+    //private
+    'futures/position:BCH-USD-210326',
+    'futures/account:BCH-USDT',
+    'swap/position:BCH-USD-SWAP',
+]);
+```
+
+unSubscribe
+```php
+//Unsubscribe from public channels
+$okex->unsubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+]);
+
+//Unsubscribe from public and private channels
+$okex->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$okex->unsubscribe([
+    //public
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+    'swap/depth5:BCH-USD-SWAP',
+    'option/depth5:BTCUSD-20201021-11750-C',
+    
+    //private
+    'futures/position:BCH-USD-210326',
+    'futures/account:BCH-USDT',
+    'swap/position:BCH-USD-SWAP',
+]);
+```
+
+There are three ways to obtain channel data
+```php
+
+//The first way
+$data=$okex->getSubscribe();
+print_r(json_encode($data));
+
+//The second way callback
+$okex->getSubscribe(function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$okex->getSubscribe(function($data){
+    print_r(json_encode($data));
+},true);
+```
+[More Test](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)

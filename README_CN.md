@@ -6,7 +6,7 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
-[支持Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
+支持[Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
 
 [English Document](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
@@ -16,7 +16,7 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 [Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://github.com/zhouaini528/okex-php)
+[Okex](https://github.com/zhouaini528/okex-php) 支持[Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
