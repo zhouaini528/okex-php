@@ -24,6 +24,21 @@ class SocketClient
         $this->config=$config;
 
         $this->client();
+
+        $this->init();
+    }
+
+    protected function init(){
+        //初始化全局变量
+        $this->add('global_key',[]);//保存全局变量key
+
+        $this->add('all_sub',[]);//目前总共订阅的频道
+
+        $this->add('add_sub',[]);//正在订阅的频道
+
+        $this->add('del_sub',[]);//正在删除的频道
+
+        $this->add('keysecret',[]);//目前总共key
     }
 
     function keysecret(array $keysecret=[]){
@@ -38,14 +53,14 @@ class SocketClient
      * @param array $sub
      */
     public function subscribe(array $sub=[]){
-        $this->client->add_sub=$this->resub($sub);
+        $this->save('add_sub',$this->resub($sub));
     }
 
     /**
      * @param array $sub
      */
     public function unsubscribe(array $sub=[]){
-        $this->client->del_sub=$this->resub($sub);
+        $this->save('del_sub',$this->resub($sub));
     }
 
     /**
@@ -101,5 +116,6 @@ class SocketClient
         print_r($this->client->add_sub);
         print_r($this->client->del_sub);
         print_r($this->client->keysecret);
+        print_r($this->client->global_key);
     }
 }

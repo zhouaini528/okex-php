@@ -25,8 +25,6 @@ class SocketServer
     function __construct(array $config=[])
     {
         $this->config=$config;
-
-        $this->init();
     }
 
     public function start(){
@@ -98,7 +96,7 @@ class SocketServer
                 $table=strtolower($table);
                 if($con->tag=='private') $table=$con->tag_keysecret['key'].$table;
 
-                $global->add($table,$data);
+                $global->save($table,$data);
                 return;
             }
 

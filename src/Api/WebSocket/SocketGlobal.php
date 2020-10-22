@@ -27,26 +27,19 @@ trait SocketGlobal
         return $this;
     }
 
-    protected function init(){
-        //初始化全局变量
-        $this->add('all_sub',[]);//目前总共订阅的频道
-
-        $this->add('add_sub',[]);//正在订阅的频道
-
-        $this->add('del_sub',[]);//正在删除的频道
-
-        $this->add('keysecret',[]);//目前总共key
-
-        $this->add('global_key',[]);//保存全局变量key
-    }
-
     protected function add($key,$value){
-        $this->client->$key=$value;
+        $this->client->add($key,$value);
+
+        $this->saveGlobalKey($key);
     }
 
     protected function get($key){
-        if(!isset($this->client->$key) || empty($this->client->$key)) return '';
+        if(!isset($this->client->$key) || empty($this->client->$key)) return [];
         return $this->client->$key;
+    }
+
+    protected function save($key,$value){
+        $this->client->$key=$value;
     }
 
     protected function addSubUpdate($type='public',$data=[]){
@@ -110,10 +103,6 @@ trait SocketGlobal
         while(!$this->client->cas('keysecret', $old_client_keysecret, $new_client_keysecret));
     }
 
-    protected function save(){
-
-    }
-
     protected function keysecretInit($keysecret){
         do {
             $old_value = $new_value = $this->client->keysecret;
@@ -124,5 +113,13 @@ trait SocketGlobal
             }
         }
         while(!$this->client->cas('keysecret', $old_value, $new_value));
+    }
+
+    protected function saveGlobalKey($key){
+        do {
+            $old_value = $new_value = $this->client->global_key;
+            $new_value[$key]=$key;
+        }
+        while(!$this->client->cas('global_key', $old_value, $new_value));
     }
 }

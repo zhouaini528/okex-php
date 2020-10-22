@@ -57,7 +57,7 @@ trait SocketFunction
             foreach ($all_sub as $k=>$v){
                 if(is_array($v)) continue;
                 $sub=strtolower($v);
-                if(stristr(strtolower($data['message']),$v)!==false) $global->add($sub,$data);
+                if(stristr(strtolower($data['message']),$v)!==false) $global->save($sub,$data);
             }
         }else{
             //如果是用户单独订阅，则该用户所有相关的订阅都显示该错误
