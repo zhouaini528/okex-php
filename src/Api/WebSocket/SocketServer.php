@@ -95,7 +95,7 @@ class SocketServer
                 $table=$data['table'].':'.$this->getInstrumentId($data);
                 $table=strtolower($table);
 
-                if($con->tag != 'public') $table=$con->tag_keysecret['key'].$table;
+                if($con->tag != 'public') $table=$this->userKey($con->tag_keysecret,$table);
 
                 $global->save($table,$data);
                 return;

@@ -44,7 +44,11 @@ class OkexWebSocket
         $this->client()->unsubscribe($sub);
     }
 
-    public function getSubscribe($callback=null,$daemon=false){
-        return $this->client()->getSubscribe($callback,$daemon);
+    public function getSubscribe(array $sub,$callback=null,$daemon=false){
+        return $this->client()->getSubscribe($sub,$callback,$daemon);
+    }
+
+    public function getSubscribes($callback=null,$daemon=false){
+        return $this->client()->getSubscribes($callback,$daemon);
     }
 }

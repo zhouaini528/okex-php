@@ -33,7 +33,7 @@ trait SocketFunction
             $temp2=[$v];
             foreach ($temp1 as $tv){
                 if(strpos($v, $tv) !== false){
-                    array_push($temp2,$this->keysecret);
+                    array_push($temp2,empty($this->keysecret)? [] : $this->keysecret);
                 }
             }
             array_push($new_sub,$temp2);
@@ -83,5 +83,13 @@ trait SocketFunction
         }
 
         echo $message;
+    }
+
+    /**
+     * 设置用户key
+     * @param $keysecret
+     */
+    protected function userKey(array $keysecret,string $sub){
+        return $keysecret['key'].'='.$sub;
     }
 }

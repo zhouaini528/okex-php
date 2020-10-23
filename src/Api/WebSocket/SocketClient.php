@@ -69,39 +69,78 @@ class SocketClient
      * @param bool $daemon
      * @return mixed
      */
-    public function getSubscribe($callback=null,$daemon=false){
+    public function getSubscribe(array $sub,$callback=null,$daemon=false){
+        if($daemon) $this->daemon($callback,$sub);
+
+        $sub=$this->resub($sub);
+
+        return $this->getData($this,$callback,$sub);
+    }
+
+    /**
+     * 返回订阅的所有数据
+     * @param null $callback
+     * @param bool $daemon
+     * @return array
+     */
+    public function getSubscribes($callback=null,$daemon=false){
         if($daemon) $this->daemon($callback);
 
         return $this->getData($this,$callback);
     }
 
-    protected function daemon($callback=null){
+    protected function daemon($callback=null,$sub=[]){
         $worker = new Worker();
-        $worker->onWorkerStart = function() use($callback) {
+        $worker->onWorkerStart = function() use($callback,$sub) {
             $global = $this->client();
 
             $time=isset($this->config['data_time']) ? $this->config['data_time'] : 0.1 ;
 
-            Timer::add($time, function() use ($global,$callback){
-                $this->getData($global,$callback);
+            $sub=$this->resub($sub);
+
+            Timer::add($time, function() use ($global,$callback,$sub){
+                $this->getData($global,$callback,$sub);
             });
         };
         Worker::runAll();
     }
 
-    protected function getData($global,$callback=null){
+    /**
+     * @param $global
+     * @param null $callback
+     * @param array $sub 返回规定的频道
+     * @return array
+     */
+    protected function getData($global,$callback=null,$sub=[]){
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return [];
 
         $temp=[];
-        foreach ($all_sub as $k=>$v){
-            if(is_array($v)) $table=$k;
-            else $table=$v;
 
-            $data=$global->get(strtolower($table));
-            if(empty($data)) continue;
+        //默认返回所有数据
+        if(empty($sub)){
+            foreach ($all_sub as $k=>$v){
+                if(is_array($v)) $table=$k;
+                else $table=$v;
 
-            $temp[$table]=$data;
+                $data=$global->get(strtolower($table));
+                if(empty($data)) continue;
+                $temp[$table]=$data;
+            }
+        }else{
+            //返回规定的数据
+            foreach ($sub as $k=>$v){
+                if(count($v)==1) $table=$v[0];
+                else {
+                    //private
+                    if(!isset($v[1]['key'])) continue;
+                    $table=$this->userKey($v[1],$v[0]);
+                }
+                $data=$global->get(strtolower($table));
+                if(empty($data)) continue;
+
+                $temp[$table]=$data;
+            }
         }
 
         if($callback!==null){

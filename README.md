@@ -622,7 +622,7 @@ $okex->unsubscribe([
 ]);
 ```
 
-There are three ways to obtain channel data
+Get all channel subscription data
 ```php
 
 //The first way
@@ -636,6 +636,61 @@ $okex->getSubscribe(function($data){
 
 //The third way is to guard the process
 $okex->getSubscribe(function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+Get partial channel subscription data
+```php
+//The first way
+$data=$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+]);
+print_r(json_encode($data));
+
+//The second way callback
+$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+],function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+Get partial private channel subscription data
+```php
+//The first way
+$okex->keysecret($key_secret);
+$data=$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+]);
+print_r(json_encode($data));
+
+//The second way callback
+$okex->keysecret($key_secret);
+$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$okex->keysecret($key_secret);
+$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+],function($data){
     print_r(json_encode($data));
 },true);
 ```

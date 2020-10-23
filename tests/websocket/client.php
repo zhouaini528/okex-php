@@ -117,17 +117,78 @@ switch ($action){
         //****Three ways to get all data
 
         //The first way
-        $data=$okex->getSubscribe();
+        $data=$okex->getSubscribes();
         print_r(json_encode($data));
 
 
         //The second way callback
-        $okex->getSubscribe(function($data){
+        $okex->getSubscribes(function($data){
             print_r(json_encode($data));
         });
 
         //The third way is to guard the process
-        $okex->getSubscribe(function($data){
+        $okex->getSubscribes(function($data){
+            print_r(json_encode($data));
+        },true);
+
+        break;
+    }
+
+    case 21:{
+        //****Three ways return to the specified channel data
+
+        //The first way
+        $data=$okex->getSubscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+        ]);
+        print_r(json_encode($data));
+
+        //The second way callback
+        $okex->getSubscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+        ],function($data){
+            print_r(json_encode($data));
+        });
+
+        //The third way is to guard the process
+        $okex->getSubscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+        ],function($data){
+            print_r(json_encode($data));
+        },true);
+
+        break;
+    }
+
+    case 22:{
+        //****Three ways return to the specified channel data
+
+        //The first way
+        $okex->keysecret($key_secret[0]);
+        $data=$okex->getSubscribe([
+            'futures/depth5:BCH-USD-210326',
+            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+        ]);
+        print_r(json_encode($data));
+
+        //The second way callback
+        $okex->keysecret($key_secret[0]);
+        $okex->getSubscribe([
+            'futures/depth5:BCH-USD-210326',
+            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+        ],function($data){
+            print_r(json_encode($data));
+        });
+
+        //The third way is to guard the process
+        $okex->keysecret($key_secret[0]);
+        $okex->getSubscribe([
+            'futures/depth5:BCH-USD-210326',
+            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+        ],function($data){
             print_r(json_encode($data));
         },true);
 
@@ -189,6 +250,21 @@ switch ($action){
         $okex->keysecret($key_secret[0]);
         $okex->subscribe([
             'futures/position:BCH-USD-210326',
+        ]);
+        break;
+    }
+
+    //subscribe
+    case 10006:{
+        $okex->keysecret($key_secret[1]);
+        $okex->subscribe([
+            'spot/depth5:BCH-USDT',
+            'futures/depth5:BCH-USD-210326',
+            'swap/depth5:BCH-USD-SWAP',
+
+            'futures/position:BCH-USD-210326',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
         ]);
         break;
     }

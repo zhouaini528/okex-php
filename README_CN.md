@@ -619,24 +619,79 @@ $okex->unsubscribe([
 ]);
 ```
 
-频道数据获取，有三种方式
+获取全部频道订阅数据
 ```php
-
 //第一种方式，直接获取当前最新数据
-$data=$okex->getSubscribe();
+$data=$okex->getSubscribes();
 print_r(json_encode($data));
 
 
 //第二种方式，通过回调函数，获取当前最新数据
-$okex->getSubscribe(function($data){
+$okex->getSubscribes(function($data){
     print_r(json_encode($data));
 });
 
 //第二种方式，通过回调函数并开启常驻进程，获取当前最新数据
-$okex->getSubscribe(function($data){
+$okex->getSubscribes(function($data){
     print_r(json_encode($data));
 },true);
 ```
+
+获取部分频道订阅数据
+```php
+//The first way
+$data=$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+]);
+print_r(json_encode($data));
+
+//The second way callback
+$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$okex->getSubscribe([
+    'spot/depth5:BCH-USDT',
+    'futures/depth5:BCH-USD-210326',
+],function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+获取部分私有频道订阅数据
+```php
+//The first way
+$okex->keysecret($key_secret);
+$data=$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+]);
+print_r(json_encode($data));
+
+//The second way callback
+$okex->keysecret($key_secret);
+$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$okex->keysecret($key_secret);
+$okex->getSubscribe([
+    'futures/depth5:BCH-USD-210326',
+    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+],function($data){
+    print_r(json_encode($data));
+},true);
+```
+
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
 
 
