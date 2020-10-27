@@ -132,6 +132,8 @@ class SocketServer
 
     private function onClose(){
         return function($con){
+            $this->log('reconnection');
+
             //这里连接失败 会轮询 connect
             $con->reConnect(5);
         };
@@ -139,7 +141,7 @@ class SocketServer
 
     private function onError(){
         return function($con, $code, $msg){
-
+            $this->log('onerror code:'.$code.' msg:'.$msg);
         };
     }
 
@@ -150,7 +152,7 @@ class SocketServer
     private function ping($con){
         $time=isset($this->config['ping_time']) ? $this->config['ping_time'] : 20 ;
 
-        Timer::add(20, function() use ($con) {
+        Timer::add($time, function() use ($con) {
             $con->send("ping");
 
             $this->log($con->tag.' send ping');
