@@ -20,7 +20,7 @@ Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.m
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://github.com/zhouaini528/binance-php)
+[Binance](https://github.com/zhouaini528/binance-php) Support [Websocket](https://github.com/zhouaini528/binance-php/blob/master/README.md#Websocket)
 
 [Kucoin](https://github.com/zhouaini528/kucoin-php)
 

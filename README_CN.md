@@ -20,7 +20,7 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://github.com/zhouaini528/binance-php)
+[Binance](https://github.com/zhouaini528/binance-php) 支持[Websocket](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md#Websocket)
 
 [Kucoin](https://github.com/zhouaini528/Kucoin-php)
 
