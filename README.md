@@ -547,6 +547,8 @@ $okex=new OkexWebSocket();
 $okex->config([
     //Do you want to enable local logging,default false
     'log'=>true,
+    //Or set the log name
+    //'log'=>['filename'=>'okex'],
 
     //Daemons address and port,default 0.0.0.0:2207
     //'global'=>'127.0.0.1:2208',
