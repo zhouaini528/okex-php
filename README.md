@@ -14,7 +14,7 @@ Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.m
 
 [Exchanges](https://github.com/zhouaini528/exchanges-php) It includes all of the following exchanges and is highly recommended.
 
-[Bitmex](https://github.com/zhouaini528/bitmex-php)
+[Bitmex](https://github.com/zhouaini528/bitmex-php) Support [Websocket](https://github.com/zhouaini528/bitmex-php/blob/master/README.md#Websocket)
 
 [Okex](https://github.com/zhouaini528/okex-php) Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
 
@@ -505,7 +505,7 @@ try {
 
 ### Websocket
 
-Websocket has two services, server and client. The server is responsible for dealing with the new connection of the exchange, data receiving, authentication and login, etc. Client is responsible for obtaining and processing data.
+Websocket has two services, server and client. The server is responsible for dealing with the new connection of the exchange, data receiving, authentication and login. Client is responsible for obtaining and processing data.
 
 Server initialization must be started in cli mode.
 ```php
