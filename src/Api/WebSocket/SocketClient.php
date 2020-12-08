@@ -121,7 +121,6 @@ class SocketClient
         if(empty($sub)){
             foreach ($all_sub as $k=>$v){
                 if(is_array($v)){
-                    print_r($v);
                     if(empty($this->keysecret) || $this->keysecret['key']!=$v[1]['key']) continue;
 
                     $table=$this->userKey($v[1],$v[0]);
