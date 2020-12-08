@@ -8,6 +8,9 @@ namespace Lin\Okex\Api\WebSocket;
 
 trait SocketFunction
 {
+    //标记分隔符
+    static $USER_DELIMITER='===';
+
     //对数据轮询 获取当前数据的订阅ID
     protected function getInstrumentId(array $array){
         if(isset($array['currency'])) return $array['currency'];
@@ -95,6 +98,6 @@ trait SocketFunction
      * @param $keysecret
      */
     protected function userKey(array $keysecret,string $sub){
-        return $keysecret['key'].'='.$sub;
+        return $keysecret['key'].self::$USER_DELIMITER.$sub;
     }
 }

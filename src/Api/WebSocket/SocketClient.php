@@ -120,23 +120,38 @@ class SocketClient
         //默认返回所有数据
         if(empty($sub)){
             foreach ($all_sub as $k=>$v){
-                if(is_array($v)) $table=$k;
-                else $table=$v;
+                if(is_array($v)){
+                    print_r($v);
+                    if(empty($this->keysecret) || $this->keysecret['key']!=$v[1]['key']) continue;
 
-                $data=$global->get(strtolower($table));
-                if(empty($data)) continue;
-                $temp[$table]=$data;
+                    $table=$this->userKey($v[1],$v[0]);
+                    $data=$global->getQueue(strtolower($table));
+                    $temp[strtolower($table)]=$data;
+                }else{
+                    $data=$global->get(strtolower($v));
+                    $temp[strtolower($v)]=$data;
+                }
             }
         }else{
             //返回规定的数据
+            if(!empty($this->keysecret)) {
+                //是否有私有数据
+                if(isset($all_sub[$this->keysecret['key']])) $sub=array_merge($sub,$all_sub[$this->keysecret['key']]);
+            }
+
+            /*print_r($sub);
+            die;*/
             foreach ($sub as $k=>$v){
-                if(count($v)==1) $table=$v[0];
-                else {
-                    //private
-                    if(!isset($v[1]['key'])) continue;
+                if(count($v)==1) {
+                    $table=$v[0];
+                    $data=$global->get(strtolower($table));
+                } else {
+                    //判断私有数据是否需要走队列数据
+                    //$temp_v=explode(self::$USER_DELIMITER,$v);
                     $table=$this->userKey($v[1],$v[0]);
+                    $data=$global->getQueue(strtolower($table));
                 }
-                $data=$global->get(strtolower($table));
+
                 if(empty($data)) continue;
 
                 $temp[$table]=$data;
@@ -159,12 +174,10 @@ class SocketClient
     }
 
     function test2(){
-        //print_r($this->client->global_key);
         $global_key=$this->client->global_key;
         foreach ($global_key as $k=>$v){
-            echo $k.PHP_EOL;
-            print_r($this->client->$v);
-
+            echo count($this->client->$v).'----'.$k.PHP_EOL;
+            echo json_encode($this->client->$v).PHP_EOL;
         }
     }
 }

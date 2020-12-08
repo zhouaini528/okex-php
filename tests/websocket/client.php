@@ -175,6 +175,7 @@ switch ($action){
             'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
         ]);
         print_r(json_encode($data));
+        die;
 
         //The second way callback
         $okex->keysecret($key_secret[0]);
@@ -250,9 +251,9 @@ switch ($action){
 
     case 10005:{
         $okex->keysecret($key_secret[0]);
-        $okex->subscribe([
-            'futures/position:BCH-USD-210326',
-        ]);
+        $data=$okex->getSubscribes();
+        print_r(json_encode($data));
+        die;
         break;
     }
 
