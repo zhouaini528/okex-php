@@ -16,10 +16,10 @@ class Instruments extends Request
         $this->type='GET';
         $this->path='/api/spot/v3/instruments';
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * GET/api/spot/v3/instruments/<instrument_id>/book
      * */
@@ -27,12 +27,12 @@ class Instruments extends Request
         $this->type='GET';
         $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/book';
         unset($data['instrument_id']);
-        
+
         $this->data=$data;
-        
+
         return $this->exec();
     }
-    
+
     /**
      * GET /api/spot/v3/instruments/ticker
      * */
@@ -42,7 +42,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      * GET /api/spot/v3/instruments/<instrument-id>/ticker
      * */
@@ -52,7 +52,7 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
     *GET /api/spot/v3/instruments/<instrument_id>/trades
     * */
@@ -62,13 +62,23 @@ class Instruments extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /api/spot/v3/instruments/<instrument_id>/candles
      * */
     public function getCandles(array $data=[]){
         $this->type='GET';
         $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/candles';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *GET/api/spot/v3/instruments/<instrument_id>/history/candles
+     * */
+    public function getHistoryCandles(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/spot/v3/instruments/'.$data['instrument_id'].'/history/candles';
         $this->data=$data;
         return $this->exec();
     }
