@@ -44,10 +44,14 @@ class SocketServer
 
     private function newConnection(){
         return function($tag,$keysecret){
+            $baseurl='ws://real.okex.com:8443/ws/v3';
+
             $global=$this->client();
 
-            $this->connection[$this->connectionIndex] = new AsyncTcpConnection('ws://real.okex.com:8443/ws/v3');
+            $this->connection[$this->connectionIndex] = new AsyncTcpConnection($baseurl);
             $this->connection[$this->connectionIndex]->transport = 'ssl';
+
+            $this->log('Connection '.$baseurl);
 
             //自定义属性
             $this->connection[$this->connectionIndex]->tag=$tag;//标记公共连接还是私有连接
@@ -55,7 +59,7 @@ class SocketServer
 
             $this->connection[$this->connectionIndex]->onConnect=$this->onConnect($keysecret);
             $this->connection[$this->connectionIndex]->onMessage=$this->onMessage($global);
-            $this->connection[$this->connectionIndex]->onClose=$this->onClose();
+            $this->connection[$this->connectionIndex]->onClose=$this->onClose($global);
             $this->connection[$this->connectionIndex]->onError=$this->onError();
 
             $this->connect($this->connection[$this->connectionIndex]);
@@ -134,12 +138,20 @@ class SocketServer
         };
     }
 
-    private function onClose(){
-        return function($con){
-            $this->log('reconnection');
+    private function onClose($global){
+        return function($con) use($global){
+            if($con->tag=='public'){
+                $this->log($con->tag.' reconnection');
 
-            //这里连接失败 会轮询 connect
-            $con->reConnect(5);
+                $this->reconnection($global,'public');
+
+                //这里连接失败 会轮询 connect
+                $con->reConnect(10);
+            }else{
+                $this->log('connection close '.$con->tag_keysecret['key']);
+
+                Timer::del($con->timer_other);
+            }
         };
     }
 
@@ -166,13 +178,38 @@ class SocketServer
     private function other($con,$global){
         $time=isset($this->config['listen_time']) ? $this->config['listen_time'] : 2 ;
 
-        Timer::add($time, function() use($con,$global) {
+        $con->timer_other=Timer::add($time, function() use($con,$global) {
             $this->subscribe($con,$global);
 
             $this->unsubscribe($con,$global);
 
+            $this->debug($con,$global);
+
             $this->log('listen '.$con->tag);
         });
+    }
+
+    /**
+     * 调试用
+     * @param $con
+     * @param $global
+     */
+    private function debug($con,$global){
+        if($con->tag=='public'){
+            //public
+            $debug=$global->get('debug');
+
+            if(isset($debug['public']) && $debug['public'][$con->tag]=='close'){
+                $this->log($con->tag.' debug '.json_encode($debug));
+
+                $debug['public'][$con->tag]='recon';
+                $global->save('debug',$debug);
+
+                $con->close();
+            }
+        }else{
+            //private
+        }
     }
 
     private function subscribe($con,$global){
@@ -237,6 +274,7 @@ class SocketServer
         $temp=$global->get('add_sub');
         //判断是否是私有连接，并判断该私有连接是否是  当前用户。
         foreach ($temp as $v){
+            if(!isset($v[1])) continue;
             $key=$v[1]['key'];
             if(count($v)>1 && $key==$keysecret['key']) $sub[]=$v[0];
         }

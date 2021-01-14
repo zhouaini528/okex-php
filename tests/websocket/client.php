@@ -48,7 +48,6 @@ switch ($action){
             'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
             'swap/depth5:BCH-USD-SWAP',
-            'option/depth5:BTCUSD-20201021-11750-C',
         ]);
 
         break;
@@ -250,10 +249,7 @@ switch ($action){
     }
 
     case 10005:{
-        $okex->keysecret($key_secret[0]);
-        $data=$okex->getSubscribes();
-        print_r(json_encode($data));
-        die;
+        $okex->client()->test_reconnection();
         break;
     }
 
