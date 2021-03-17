@@ -45,9 +45,9 @@ switch ($action){
     //subscribe
     case 1:{
         $okex->subscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
         ]);
 
         break;
@@ -56,9 +56,9 @@ switch ($action){
     //unsubscribe
     case 2:{
         $okex->unsubscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
             'option/depth5:BTCUSD-20201021-11750-C',
         ]);
 
@@ -70,13 +70,13 @@ switch ($action){
     case 10:{
         $okex->keysecret($key_secret[0]);
         $okex->subscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
 
             'futures/position:BCH-USD-210326',
-            'futures/account_v3:BCH-USDT',
-            'swap_v3/position:BCH-USD-SWAP',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
         ]);
         break;
     }
@@ -85,13 +85,13 @@ switch ($action){
     case 11:{
         $okex->keysecret($key_secret[0]);
         $okex->unsubscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
 
             'futures/position:BCH-USD-210326',
-            'futures/account_v3:BCH-USDT',
-            'swap_v3/position:BCH-USD-SWAP',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
         ]);
 
         break;
@@ -104,12 +104,12 @@ switch ($action){
             'passphrase'=>'xxxxxxxxx',
         ]);
         $okex->subscribe([
-            'spot_v3/depth5:BTC-USDT',
+            'spot/depth5:BTC-USDT',
             'futures/depth5:BTC-USD-210326',
-            'swap_v3/depth5:BTC-USD-SWAP',
+            'swap/depth5:BTC-USD-SWAP',
 
             'futures/position:BTC-USD-210326',
-            'swap_v3/position:BTC-USD-SWAP',
+            'swap/position:BTC-USD-SWAP',
         ]);
         break;
     }
@@ -140,14 +140,14 @@ switch ($action){
 
         //The first way
         $data=$okex->getSubscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
         ]);
         print_r(json_encode($data));
 
         //The second way callback
         $okex->getSubscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
         ],function($data){
             print_r(json_encode($data));
@@ -155,7 +155,7 @@ switch ($action){
 
         //The third way is to guard the process
         $okex->getSubscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
         ],function($data){
             print_r(json_encode($data));
@@ -205,7 +205,7 @@ switch ($action){
     //Simulation error message
     case 10001:{
         $okex->subscribe([
-            'spot_v3/depth5:BCH-USDT-xx',
+            'spot/depth5:BCH-USDT-xx',
         ]);
         break;
     }
@@ -217,23 +217,23 @@ switch ($action){
             'passphrase'=>'xxxxxxxxx',
         ]);
         $okex->subscribe([
-            'swap_v3/depth5:BTC-USD-SWAP-xxx',
+            'swap/depth5:BTC-USD-SWAP-xxx',
 
             'futures/position:BTC-USD-210326',
-            'swap_v3/position:BTC-USD-SWAP',
+            'swap/position:BTC-USD-SWAP',
         ]);
         break;
     }
 
     case 10003:{
         $okex->subscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
             'option/depth5:BTCUSD-20201021-11750-C',
 
             'futures/position:BTC-USD-210326',
-            'swap_v3/position:BTC-USD-SWAP',
+            'swap/position:BTC-USD-SWAP',
         ]);
         break;
     }
@@ -257,13 +257,13 @@ switch ($action){
     case 10006:{
         $okex->keysecret($key_secret[1]);
         $okex->subscribe([
-            'spot_v3/depth5:BCH-USDT',
+            'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210326',
-            'swap_v3/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',
 
             'futures/position:BCH-USD-210326',
-            'futures/account_v3:BCH-USDT',
-            'swap_v3/position:BCH-USD-SWAP',
+            'futures/account:BCH-USDT',
+            'swap/position:BCH-USD-SWAP',
         ]);
         break;
     }
