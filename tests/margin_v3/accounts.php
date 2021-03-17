@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -21,7 +21,7 @@ $okex=new OkexMargin($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
     'proxy'=>true,
     //More flexible Settings
@@ -34,7 +34,7 @@ $okex->setOptions([
     //'verify'=>false,
 ]);
 
-//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
+//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot_v3 accounts.
 try {
     $result=$okex->account()->getAll();
     print_r($result);
@@ -42,7 +42,7 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 
-//This endpoint supports getting the balance, amount available/on hold of a token in spot account.
+//This endpoint supports getting the balance, amount available/on hold of a token in spot_v3 account_v3.
 try {
     $result=$okex->account()->get([
         'instrument_id'=>'BTC-USDT'

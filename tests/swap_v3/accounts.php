@@ -3,25 +3,25 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
-use Lin\Okex\OkexSpot;
+use Lin\Okex\OkexSwap;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$okex=new OkexSpot($key,$secret,$passphrase);
+$okex=new OkexSwap($key,$secret,$passphrase);
 
 //You can set special needs
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
     'proxy'=>true,
     //More flexible Settings
@@ -34,7 +34,7 @@ $okex->setOptions([
     //'verify'=>false,
 ]);
 
-//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
+//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot_v3 accounts.
 try {
     $result=$okex->account()->getAll();
     print_r($result);
@@ -42,10 +42,10 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 
-//This endpoint supports getting the balance, amount available/on hold of a token in spot account.
+//This endpoint supports getting the balance, amount available/on hold of a token in spot_v3 account_v3.
 try {
     $result=$okex->account()->get([
-        'currency'=>'BTC'
+        'instrument_id'=>'BTC-USD-SWAP'
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -55,8 +55,11 @@ try {
 //All paginated requests return the latest information (newest) as the first page sorted by newest (in chronological time) first.
 try {
     $result=$okex->account()->getLedger([
-        'currency'=>'btc',
+        'instrument_id'=>'BTC-USD-SWAP',
         'limit'=>2,
+        //'type'=>'1',
+        //'from'=>'',
+        //'to'=>'',
     ]);
     print_r($result);
 }catch (\Exception $e){

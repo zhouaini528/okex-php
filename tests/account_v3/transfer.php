@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -21,7 +21,7 @@ $okex=new OkexAccount($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
     'proxy'=>true,
     //More flexible Settings
@@ -39,12 +39,12 @@ try {
     $result=$okex->transfer()->post([
         //currency	String	Yes	Token
         //amount	String	Yes	Transfer amount
-        //from	String	Yes	the remitting account (0: sub account 1: spot 3: futures 4:C2C 5: margin 6: Funding Account 8:PiggyBank 9：swap)
-        //to	String	Yes	the beneficiary account(0: sub account 1:spot 3: futures 4:C2C 5: margin 6: Funding Account 8:PiggyBank 9 :swap)
-        //sub_account	String	No	sub account name
+        //from	String	Yes	the remitting account_v3 (0: sub account_v3 1: spot_v3 3: futures 4:C2C 5: margin_v3 6: Funding Account 8:PiggyBank 9：swap_v3)
+        //to	String	Yes	the beneficiary account_v3(0: sub account_v3 1:spot_v3 3: futures 4:C2C 5: margin_v3 6: Funding Account 8:PiggyBank 9 :swap_v3)
+        //sub_account	String	No	sub account_v3 name
         //instrument_id	String	No	Margin trading pair transferred out, for supported pairs only
         //to_instrument_id	String	No	Margin trading pair transferred in, for supported pairs only
-        
+
         'currency'=>'btc',
         'amount'=>'0.001',
         'from'=>'1',
