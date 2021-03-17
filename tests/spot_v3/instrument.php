@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Your can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -19,9 +19,9 @@ $okex=new OkexSpot();
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',

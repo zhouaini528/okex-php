@@ -55,7 +55,7 @@ sleep(1);
 try {
     $result=$okex->order()->get([
         'instrument_id'=>'btc-usdt',
-        'order_id'=>$result['order_id'],
+        'order_id'=>'xxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -67,14 +67,14 @@ sleep(1);
 try {
     $result=$okex->order()->postCancel([
         'instrument_id'=>'btc-usdt',
-        'order_id'=>$result['order_id'],
+        'order_id'=>'xxxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-die;
+
 //*******************Simulation Test
 
 $key = "09d4ed9e-6c2b-4652-9119-5c8eea078904";

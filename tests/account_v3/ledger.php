@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -21,9 +21,9 @@ $okex=new OkexAccount($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -42,7 +42,7 @@ try {
         //from	String	否	请求此id之前(更旧的数据)的分页内容，传的值为对应接口的order_id、ledger_id或trade_id等；
         //to	String	否	请求此id之后(更新的数据)的分页内容，传的值为对应接口的order_id、ledger_id或trade_id等；
         //limit	String	否	分页返回的结果集数量，最大为100，不填默认返回100条
-        
+
         'currency'=>'btc'
     ]);
     print_r($result);

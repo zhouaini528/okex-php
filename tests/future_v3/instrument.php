@@ -19,9 +19,9 @@ $okex=new OkexFuture();
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -35,7 +35,7 @@ $okex->setOptions([
 //List all contracts. This request does not support pagination. The full list will be returned for a request.
 try {
     $result=$okex->instrument()->getBook([
-        'instrument_id'=>'BTC-USD-190927',
+        'instrument_id'=>'BTC-USD-210925',
         'size'=>20,
     ]);
     print_r($result);

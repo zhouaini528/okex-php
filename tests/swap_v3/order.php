@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -21,9 +21,9 @@ $okex=new OkexSwap($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -52,7 +52,7 @@ sleep(1);
 try {
     $result=$okex->order()->get([
         'instrument_id'=>'BTC-USD-SWAP',
-        'order_id'=>$result['order_id'],
+        'order_id'=>'xxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -64,7 +64,7 @@ sleep(1);
 try {
     $result=$okex->order()->postCancel([
         'instrument_id'=>'BTC-USD-SWAP',
-        'order_id'=>$result['order_id'],
+        'order_id'=>'xxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){

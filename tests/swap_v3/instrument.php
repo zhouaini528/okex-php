@@ -19,9 +19,9 @@ $okex=new OkexSwap();
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -38,7 +38,7 @@ try {
         'instrument_id'=>'BTC-USD-SWAP',
         'size'=>10,
     ]);
-    
+
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));

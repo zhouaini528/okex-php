@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/okex-php.git
  * */
@@ -21,9 +21,9 @@ $okex=new OkexFuture($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -37,7 +37,7 @@ $okex->setOptions([
 //Place an Order
 try {
     $result=$okex->order()->post([
-        'instrument_id'=>'BTC-USD-190927',
+        'instrument_id'=>'BTC-USD-210925',
         'type'=>'1',
         'price'=>'100',
         'size'=>'1',
@@ -51,8 +51,8 @@ sleep(1);
 //Get order details by order ID.
 try {
     $result=$okex->order()->get([
-        'instrument_id'=>'BTC-USD-190927',
-        'order_id'=>$result['order_id'],
+        'instrument_id'=>'BTC-USD-210925',
+        'order_id'=>'xxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -63,8 +63,8 @@ sleep(1);
 //Cancelling an unfilled order.
 try {
     $result=$okex->order()->postCancel([
-        'instrument_id'=>'BTC-USD-190927',
-        'order_id'=>$result['order_id'],
+        'instrument_id'=>'BTC-USD-210925',
+        'order_id'=>'xxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
