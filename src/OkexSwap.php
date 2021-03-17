@@ -6,11 +6,11 @@
 namespace Lin\Okex;
 
 
-use Lin\Okex\Api\Swap\Accounts;
-use Lin\Okex\Api\Swap\Fills;
-use Lin\Okex\Api\Swap\Instruments;
-use Lin\Okex\Api\Swap\Orders;
-use Lin\Okex\Api\Swap\Position;
+use Lin\Okex\Api\SwapV3\Accounts;
+use Lin\Okex\Api\SwapV3\Fills;
+use Lin\Okex\Api\SwapV3\Instruments;
+use Lin\Okex\Api\SwapV3\Orders;
+use Lin\Okex\Api\SwapV3\Position;
 
 class OkexSwap
 {
@@ -39,6 +39,9 @@ class OkexSwap
             'host'=>$this->host,
 
             'options'=>$this->options,
+
+            'platform'=>'swap',
+            'version'=>'v3',
         ];
     }
 

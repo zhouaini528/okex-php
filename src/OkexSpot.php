@@ -6,11 +6,11 @@
 namespace Lin\Okex;
 
 
-use Lin\Okex\Api\Spot\Accounts;
-use Lin\Okex\Api\Spot\Fills;
-use Lin\Okex\Api\Spot\Instruments;
-use Lin\Okex\Api\Spot\Orders;
-use Lin\Okex\Api\Spot\Trade;
+use Lin\Okex\Api\SpotV3\Accounts;
+use Lin\Okex\Api\SpotV3\Fills;
+use Lin\Okex\Api\SpotV3\Instruments;
+use Lin\Okex\Api\SpotV3\Orders;
+use Lin\Okex\Api\SpotV3\Trade;
 
 class OkexSpot
 {
@@ -18,16 +18,16 @@ class OkexSpot
     protected $secret;
     protected $passphrase;
     protected $host;
-    
+
     protected $options=[];
-    
+
     function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
         $this->passphrase=$passphrase;
     }
-    
+
     /**
      *
      * */
@@ -38,9 +38,12 @@ class OkexSpot
             'passphrase'=>$this->passphrase,
             'host'=>$this->host,
             'options'=>$this->options,
+
+            'platform'=>'spot',
+            'version'=>'v3',
         ];
     }
-    
+
     /**
      *
      * */
@@ -54,28 +57,28 @@ class OkexSpot
     public function account(){
         return  new Accounts($this->init());
     }
-    
+
     /**
      *
      * */
     public function fill(){
         return  new Fills($this->init());
     }
-    
+
     /**
      *
      * */
     public function instrument(){
         return  new Instruments($this->init());
     }
-    
+
     /**
      *
      * */
     public function order(){
         return  new Orders($this->init());
     }
-    
+
     /**
      *
      * */

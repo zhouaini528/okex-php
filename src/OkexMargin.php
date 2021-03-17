@@ -6,9 +6,9 @@
 namespace Lin\Okex;
 
 
-use Lin\Okex\Api\Margin\Accounts;
-use Lin\Okex\Api\Margin\Fills;
-use Lin\Okex\Api\Margin\Orders;
+use Lin\Okex\Api\MarginV3\Accounts;
+use Lin\Okex\Api\MarginV3\Fills;
+use Lin\Okex\Api\MarginV3\Orders;
 
 class OkexMargin
 {
@@ -16,16 +16,16 @@ class OkexMargin
     protected $secret;
     protected $passphrase;
     protected $host;
-    
+
     protected $options=[];
-    
+
     function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
         $this->passphrase=$passphrase;
     }
-    
+
     /**
      *
      * */
@@ -36,9 +36,12 @@ class OkexMargin
             'passphrase'=>$this->passphrase,
             'host'=>$this->host,
             'options'=>$this->options,
+
+            'platform'=>'margin',
+            'version'=>'v3',
         ];
     }
-    
+
     /**
      *
      * */
@@ -52,14 +55,14 @@ class OkexMargin
     public function account(){
         return  new Accounts($this->init());
     }
-    
+
     /**
      *
      * */
     public function fill(){
         return  new Fills($this->init());
     }
-    
+
     /**
      *
      * */

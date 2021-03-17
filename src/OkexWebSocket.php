@@ -5,8 +5,8 @@
 
 namespace Lin\Okex;
 
-use Lin\Okex\Api\WebSocket\SocketServer;
-use Lin\Okex\Api\WebSocket\SocketClient;
+use Lin\Okex\Api\WebSocketV3\SocketServer;
+use Lin\Okex\Api\WebSocketV3\SocketClient;
 
 
 class OkexWebSocket
