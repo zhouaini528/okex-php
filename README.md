@@ -34,11 +34,21 @@ Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.m
 
 [Bittrex](https://github.com/zhouaini528/bittrex-php)
 
-[Gate](https://github.com/zhouaini528/gate-php)
+[Kraken](https://github.com/zhouaini528/kraken-php)
+
+[Gate](https://github.com/zhouaini528/gate-php)   
 
 [Bigone](https://github.com/zhouaini528/bigone-php)   
 
 [Crex24](https://github.com/zhouaini528/crex24-php)   
+
+[Bybit](https://github.com/zhouaini528/bybit-php)  
+
+[Coinbene](https://github.com/zhouaini528/coinbene-php)   
+
+[Bitget](https://github.com/zhouaini528/bitget-php)   
+
+[Poloniex](https://github.com/zhouaini528/poloniex-php)
 
 #### Installation
 ```
