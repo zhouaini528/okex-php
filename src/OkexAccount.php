@@ -5,6 +5,7 @@
 
 namespace Lin\Okex;
 
+use Lin\Okex\Api\AccountV3\Account;
 use Lin\Okex\Api\AccountV3\Currencies;
 use Lin\Okex\Api\AccountV3\Deposit;
 use Lin\Okex\Api\AccountV3\Ledger;
@@ -51,6 +52,12 @@ class OkexAccount
         $this->options=$options;
     }
 
+    /**
+     *
+     * */
+    public function account(){
+        return new Account($this->init());
+    }
 
     /**
      *
