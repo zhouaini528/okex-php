@@ -517,7 +517,7 @@ try {
 
 Websocket has two services, server and client. The server is responsible for dealing with the new connection of the exchange, data receiving, authentication and login. Client is responsible for obtaining and processing data.
 
-Server initialization must be started in cli mode.
+Server initialization must be started in Linux CLI mode.
 ```php
 use Lin\Okex\OkexWebSocket;
 require __DIR__ .'./vendor/autoload.php';
