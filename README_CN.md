@@ -515,6 +515,8 @@ try {
 
 Websocket有两个服务server和client，server负责处理交易所新连接、数据接收、认证登陆等等。client负责获取数据、处理数据。
 
+[Websocket行情应用举例](https://github.com/zhouaini528/websocket-market)
+
 Server端初始化，必须在cli模式下开启。
 ```php
 use Lin\Okex\OkexWebSocket;
