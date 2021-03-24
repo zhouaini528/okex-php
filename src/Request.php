@@ -65,7 +65,7 @@ class Request
     }
 
     /**
-     * 过期时间
+     *
      * */
     protected function nonce(){
         $this->nonce=gmdate('Y-m-d\TH:i:s\.000\Z');
@@ -90,7 +90,7 @@ class Request
     }
 
     /**
-     * 默认头部信息
+     *
      * */
     protected function headers(){
         $this->headers=[
@@ -108,7 +108,7 @@ class Request
     }
 
     /**
-     * 请求设置
+     *
      * */
     protected function options(){
         if(isset($this->options['headers'])) $this->headers=array_merge($this->headers,$this->options['headers']);
@@ -126,7 +126,7 @@ class Request
     }
 
     /**
-     * 发送http
+     *
      * */
     protected function send(){
         $client = new \GuzzleHttp\Client();
@@ -148,12 +148,11 @@ class Request
     }
 
     /*
-     * 执行流程
+     *
      * */
     protected function exec(){
         $this->auth();
 
-        //可以记录日志
         try {
             return json_decode($this->send(),true);
         }catch (RequestException $e){
@@ -173,7 +172,6 @@ class Request
 
             $temp['_httpcode']=$e->getCode();
 
-            //TODO  该流程可以记录各种日志
             throw new Exception(json_encode($temp));
         }
     }

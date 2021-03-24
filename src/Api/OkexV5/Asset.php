@@ -34,8 +34,8 @@ class Asset extends Request
     /**
      *POST /api/v5/asset/transfer
      * */
-    public function getTransfer(array $data=[]){
-        $this->type='GET';
+    public function postTransfer(array $data=[]){
+        $this->type='POST';
         $this->path='/api/v5/asset/transfer';
 
         $this->data=$data;
@@ -45,8 +45,8 @@ class Asset extends Request
     /**
      *POST /api/v5/asset/withdrawal
      * */
-    public function getWithdrawal(array $data=[]){
-        $this->type='GET';
+    public function postWithdrawal(array $data=[]){
+        $this->type='POST';
         $this->path='/api/v5/asset/withdrawal';
 
         $this->data=$data;
@@ -100,7 +100,7 @@ class Asset extends Request
     /**
      *GET /api/v5/asset/bills
      * */
-    public function getills(array $data=[]){
+    public function getBills(array $data=[]){
         $this->type='GET';
         $this->path='/api/v5/asset/bills';
 

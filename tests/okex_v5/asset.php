@@ -32,15 +32,58 @@ $okex->setOptions([
      ], */
     //Close the certificate
     //'verify'=>false,
+
+    //set Demo Trading
+    'headers'=>['x-simulated-trading'=>1]
 ]);
 
-//
+
 try {
-    $result=$okex->account()->getBalance();
+    $result=$okex->asset()->getDepositAddress([
+        'ccy'=>'btc',
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+
+try {
+    $result=$okex->asset()->getBalances([
+        'ccy'=>'btc',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$okex->asset()->getDepositHistory();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$okex->asset()->getWithdrawalHistory();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$okex->asset()->postTransfer([
+        'ccy'=>'btc',
+        'amt'=>'0.01',
+        'from'=>'1',
+        'to'=>'3',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
+
 
 
 

@@ -8,6 +8,8 @@ All interface methods are initialized the same as those provided by okex. See de
 
 Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
 
+Support V3 V5 API
+
 [中文文档](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md)
 
 ### Other exchanges API

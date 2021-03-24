@@ -8,6 +8,8 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 支持[Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
 
+支持V3 V5 API
+
 [English Document](https://github.com/zhouaini528/okex-php/blob/master/README.md)
 
 QQ交流群：668421169
