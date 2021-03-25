@@ -144,8 +144,8 @@ class Trade extends Request
     /**
      *POST /api/v5/trade/order-algo
      * */
-    public function getOrderAlgo(array $data=[]){
-        $this->type='GET';
+    public function postOrderAlgo(array $data=[]){
+        $this->type='POST';
         $this->path='/api/v5/trade/order-algo';
 
         $this->data=$data;
@@ -155,8 +155,8 @@ class Trade extends Request
     /**
      *POST /api/v5/trade/cancel-algos
      * */
-    public function getCancelAlgos(array $data=[]){
-        $this->type='GET';
+    public function postCancelAlgos(array $data=[]){
+        $this->type='POST';
         $this->path='/api/v5/trade/cancel-algos';
 
         $this->data=$data;

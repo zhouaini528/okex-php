@@ -62,6 +62,9 @@ composer require linwj/okex
 支持本地开发代理设置 [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
 ```php
 $okex=new OkexSpot();
+//or
+$okex=new OkexSpot($key,$secret,$passphrase);
+
 //You can set special needs
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
@@ -77,8 +80,15 @@ $okex->setOptions([
      ], */
     //Close the certificate
     //'verify'=>false,
+
+    //Set Demo Trading
+    //'headers'=>['x-simulated-trading'=>1]
 ]);
 ```
+
+### Okex V5 API
+
+[点击查看](https://github.com/zhouaini528/okex-php/blob/master/tests/okex_v5)
 
 ### 现货交易 API
 

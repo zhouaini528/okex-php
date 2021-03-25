@@ -38,65 +38,25 @@ $okex->setOptions([
 ]);
 
 try {
-    $result=$okex->account()->getBalance();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->getPositions();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->getBills();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->getBillsArchive();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->getConfig();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->postSetPositionMode([
-        'posMode'=>'long_short_mode'
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->postSetLeverage([
-        'instId'=>'BTC-USDT',
-        //'ccy'=>'',
-        'lever'=>'5',
-        'mgnMode'=>'cross',
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$okex->account()->getMaxSize([
+    $result=$okex->trade()->postOrder([
         'instId'=>'BTC-USDT',
         'tdMode'=>'cross',
+        'clOrdId'=>'xxxxxxxxxxx',
+        'side'=>'buy',
+        'ordType'=>'limit',
+        'sz'=>'0.01',
+        'px'=>'10000',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$okex->trade()->postCancelOrder([
+        'instId'=>'BTC-USDT',
+        'ordId'=>'xxxxxxxxx',
+        //'clOrdId'=>'xxxxxxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -104,7 +64,43 @@ try {
 }
 
 
+try {
+    $result=$okex->trade()->postAmendOrder([
+        'instId'=>'BTC-USDT',
+        'ordId'=>'xxxxxxxxx',
+        //'clOrdId'=>'xxxxxxxxxxx',
+        'newSz'=>'0.012',
+        'newPx'=>'11000',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$okex->trade()->getOrder([
+        'instId'=>'BTC-USDT',
+        'ordId'=>'xxxxxxxxx',
+        //'clOrdId'=>'xxxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 
 
+try {
+    $result=$okex->trade()->postOrderAlgo([
+        'instId'=>'BTC-USDT',
+        'tdMode'=>'cross',
+        'clOrdId'=>'xxxxxxxxxxx',
+        'side'=>'buy',
+        'ordType'=>'trigger',
+        'sz'=>'0.01',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 
 

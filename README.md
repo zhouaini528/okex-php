@@ -60,6 +60,9 @@ composer require linwj/okex
 Support for more request Settings [More](https://github.com/zhouaini528/okex-php/blob/master/tests/spot/proxy.php#L21)
 ```php
 $okex=new OkexSpot();
+//or
+$okex=new OkexSpot($key,$secret,$passphrase);
+
 //You can set special needs
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
@@ -75,8 +78,15 @@ $okex->setOptions([
      ], */
     //Close the certificate
     //'verify'=>false,
+
+    //Set Demo Trading
+    //'headers'=>['x-simulated-trading'=>1]
 ]);
 ```
+
+### Okex V5 API
+
+[Click to view](https://github.com/zhouaini528/okex-php/blob/master/tests/okex_v5)
 
 ### Spot Trading API
 
