@@ -22,7 +22,7 @@ $okex->config([
     //'log'=>['filename'=>'okex'],
 
     //Daemons address and port,default 0.0.0.0:2207
-    //'global'=>'127.0.0.1:2208',
+    'global'=>'127.0.0.1:22080',
 
     //Heartbeat time,default 20 seconds
     //'ping_time'=>20,

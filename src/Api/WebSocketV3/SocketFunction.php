@@ -104,7 +104,7 @@ trait SocketFunction
     /**
      * 重新订阅
      */
-    private function reconnection($global,$type='public'){
+    private function reconnection($global,$type='public',array $keysecret=[]){
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return;
 
@@ -113,9 +113,17 @@ trait SocketFunction
             foreach ($all_sub as $v){
                 if(!is_array($v)) $temp[]=$v;
             }
-            $global->save('add_sub',$this->resub($temp));
         }else{
+            $this->keysecret=$keysecret;
 
+            $temp=[];
+            foreach ($all_sub as $v){
+                if(is_array($v) && $keysecret['key']==$v[1]['key']){
+                    $temp[]=$v[0];
+                }
+            }
         }
+
+        $global->save('add_sub',$this->resub($temp));
     }
 }

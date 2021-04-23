@@ -24,7 +24,7 @@ $okex->config([
     //'log'=>['filename'=>'okex'],
 
     //Daemons address and port,default 0.0.0.0:2207
-    //'global'=>'127.0.0.1:2208',
+    'global'=>'127.0.0.1:22080',
 
     //Heartbeat time,default 20 seconds
     //'ping_time'=>20,
@@ -46,7 +46,7 @@ switch ($action){
     case 1:{
         $okex->subscribe([
             'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
+            'futures/depth5:BCH-USD-210924',
             'swap/depth5:BCH-USD-SWAP',
         ]);
 
@@ -71,10 +71,10 @@ switch ($action){
         $okex->keysecret($key_secret[0]);
         $okex->subscribe([
             'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
+            'futures/depth5:BCH-USD-210924',
             'swap/depth5:BCH-USD-SWAP',
 
-            'futures/position:BCH-USD-210326',
+            'futures/position:BCH-USD-210924',
             'futures/account:BCH-USDT',
             'swap/position:BCH-USD-SWAP',
         ]);
@@ -239,12 +239,7 @@ switch ($action){
     }
 
     case 10004:{
-        //$a='futures/position:bch-usd-210326';
-        //print_r($okex->client()->$a);
-        /*$data=$okex->getSubscribe();
-        print_r(json_encode($data));*/
         $okex->client()->test2();
-
         break;
     }
 
@@ -253,18 +248,15 @@ switch ($action){
         break;
     }
 
-    //subscribe
     case 10006:{
-        $okex->keysecret($key_secret[1]);
-        $okex->subscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
-            'swap/depth5:BCH-USD-SWAP',
+        $okex->client()->test_reconnection2();
+        break;
+    }
 
-            'futures/position:BCH-USD-210326',
-            'futures/account:BCH-USDT',
-            'swap/position:BCH-USD-SWAP',
-        ]);
+    case 10007:{
+        //private
+        //print_r($key_secret[0]);
+        $okex->client()->test_reconnection3($key_secret[0]['key']);
         break;
     }
 }
