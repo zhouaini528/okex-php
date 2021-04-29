@@ -67,20 +67,10 @@ $okex=new OkexSpot($key,$secret,$passphrase);
 $okex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
-    //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
-
-    //Set Demo Trading
-    //'headers'=>['x-simulated-trading'=>1]
+    //https://github.com/guzzle/guzzle
+    'proxy'=>[],
+    //https://www.php.net/manual/en/book.curl.php
+    'curl'=>[],
 ]);
 ```
 
