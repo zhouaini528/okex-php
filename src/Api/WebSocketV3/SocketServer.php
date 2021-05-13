@@ -444,7 +444,7 @@ class SocketServer
         }
 
         if($old_client_keysecret[$keysecret['key']]['login']==1) {
-            $this->log('private already login return '.$keysecret['key']);
+            //$this->log('private already login return '.$keysecret['key']);
             return;
         }
 
