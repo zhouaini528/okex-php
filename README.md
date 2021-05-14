@@ -6,7 +6,7 @@ Okex Simulation Test API [https://www.okex.com/docs/en/#change-20200630](https:/
 
 All interface methods are initialized the same as those provided by okex. See details [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
-Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
+Support [Websocket v3 v5](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
 
 Support V3 V5 API
 
@@ -516,6 +516,8 @@ try {
 [More API](https://github.com/zhouaini528/okex-php/tree/master/src/Api/Futures)
 
 ### Websocket
+
+[Websocket_v5 Click to view](https://github.com/zhouaini528/okex-php/blob/master/tests/websocket_v5)
 
 Websocket has two services, server and client. The server is responsible for dealing with the new connection of the exchange, data receiving, authentication and login. Client is responsible for obtaining and processing data.
 

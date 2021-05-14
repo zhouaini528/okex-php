@@ -6,7 +6,7 @@ Okex 模拟交易API [https://www.okex.com/docs/zh/#change-20200630](https://www
 
 所有接口方法的初始化都与okex提供的方法相同。更多细节 [src/api](https://github.com/zhouaini528/okex-php/tree/master/src/Api)
 
-支持[Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
+支持[Websocket v3 v5](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
 
 支持V3 V5 API
 
@@ -514,6 +514,8 @@ try {
 
 
 ### Websocket
+
+[websocket_v5 用例查看](https://github.com/zhouaini528/okex-php/blob/master/tests/websocket_v5)
 
 Websocket有两个服务server和client，server负责处理交易所新连接、数据接收、认证登陆等等。client负责获取数据、处理数据。
 
