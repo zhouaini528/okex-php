@@ -36,10 +36,10 @@ $okex->config([
     //'data_time'=>0.1,
 
     //Set Demo Trading Services
-    'baseurl'=>[
+    /*'baseurl'=>[
         'public'=>'ws://wspap.okex.com:8443/ws/v5/public?brokerId=9999',
         'private'=>'ws://wspap.okex.com:8443/ws/v5/private?brokerId=9999',
-    ],
+    ],*/
 ]);
 
 $action=intval($_GET['action'] ?? 0);//http pattern
@@ -151,23 +151,6 @@ switch ($action){
         break;
     }
 
-    case 15:{
-        $okex->keysecret([
-            'key'=>'xxxxxxxxx',
-            'secret'=>'xxxxxxxxx',
-            'passphrase'=>'xxxxxxxxx',
-        ]);
-        $okex->subscribe([
-            'spot/depth5:BTC-USDT',
-            'futures/depth5:BTC-USD-210326',
-            'swap/depth5:BTC-USD-SWAP',
-
-            'futures/position:BTC-USD-210326',
-            'swap/position:BTC-USD-SWAP',
-        ]);
-        break;
-    }
-
     case 20:{
         //****Three ways to get all data
 
@@ -194,23 +177,25 @@ switch ($action){
 
         //The first way
         $data=$okex->getSubscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
+            ["channel"=>"tickers","instId"=>"BTC-USDT"],
+            ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+            ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
         ]);
-        print_r(json_encode($data));
 
         //The second way callback
         $okex->getSubscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
+            ["channel"=>"books","instId"=>"BTC-USDT"],
+            ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+            ["channel"=>"books","instId"=>"BTC-USD-210924"],
         ],function($data){
             print_r(json_encode($data));
         });
 
         //The third way is to guard the process
         $okex->getSubscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
+            ["channel"=>"candle5m","instId"=>"BTC-USDT"],
+            ["channel"=>"candle15m","instId"=>"BTC-USD-SWAP"],
+            ["channel"=>"candle30m","instId"=>"BTC-USD-210924"],
         ],function($data){
             print_r(json_encode($data));
         },true);
@@ -223,18 +208,18 @@ switch ($action){
 
         //The first way
         $okex->keysecret($key_secret[0]);
-        $data=$okex->getSubscribe([
-            'futures/depth5:BCH-USD-210326',
-            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
-        ]);
+        $data=$okex->getSubscribes();
         print_r(json_encode($data));
         die;
 
         //The second way callback
         $okex->keysecret($key_secret[0]);
         $okex->getSubscribe([
-            'futures/depth5:BCH-USD-210326',
-            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+            ["channel"=>"books","instId"=>"BTC-USDT"],
+            ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+
+            ["channel"=>"account","ccy"=>"BTC"],
+            ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
         ],function($data){
             print_r(json_encode($data));
         });
@@ -242,8 +227,11 @@ switch ($action){
         //The third way is to guard the process
         $okex->keysecret($key_secret[0]);
         $okex->getSubscribe([
-            'futures/depth5:BCH-USD-210326',
-            'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+            ["channel"=>"books","instId"=>"BTC-USDT"],
+            ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+
+            ["channel"=>"account","ccy"=>"BTC"],
+            ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
         ],function($data){
             print_r(json_encode($data));
         },true);
@@ -253,45 +241,6 @@ switch ($action){
 
     case 99:{
         $okex->client()->test();
-        break;
-    }
-
-    //Simulation error message
-    case 10001:{
-        $okex->subscribe([
-            'spot/depth5:BCH-USDT-xx',
-        ]);
-        break;
-    }
-
-    case 10002:{
-        $okex->keysecret([
-            'key'=>'xxxxxxxxx',
-            'secret'=>'xxxxxxxxx',
-            'passphrase'=>'xxxxxxxxx',
-        ]);
-        $okex->subscribe([
-            'swap/depth5:BTC-USD-SWAP-xxx',
-
-            'futures/position:BTC-USD-210326',
-            'swap/position:BTC-USD-SWAP',
-        ]);
-
-        break;
-
-    }
-
-
-    case 10003:{
-        $okex->subscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
-            'swap/depth5:BCH-USD-SWAP',
-            'option/depth5:BTCUSD-20201021-11750-C',
-
-            'futures/position:BTC-USD-210326',
-            'swap/position:BTC-USD-SWAP',
-        ]);
         break;
     }
 

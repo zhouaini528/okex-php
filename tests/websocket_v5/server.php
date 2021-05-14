@@ -34,10 +34,10 @@ $okex->config([
     //'data_time'=>0.1,
 
     //Set Demo Trading Services
-    'baseurl'=>[
+    /*'baseurl'=>[
         'public'=>'ws://wspap.okex.com:8443/ws/v5/public?brokerId=9999',
         'private'=>'ws://wspap.okex.com:8443/ws/v5/private?brokerId=9999',
-    ],
+    ],*/
 ]);
 
 $okex->start();

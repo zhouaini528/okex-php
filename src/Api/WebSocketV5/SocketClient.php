@@ -122,39 +122,47 @@ class SocketClient
         //默认返回所有数据
         if(empty($sub)){
             foreach ($all_sub as $k=>$v){
-                if(is_array($v)){
-                    if(empty($this->keysecret) || $this->keysecret['key']!=$v[1]['key']) continue;
+                $is_array=explode(self::$USER_DELIMITER,$k);
+                if(count($is_array)>1){
+                    /*[xxxxx-xxxxx-xxxxx==={"channel":"orders-algo","instType":"FUTURES","uly":"BTC-USD","instId":"BTC-USD-210924"}] => Array
+                                (
+                                    [channel] => orders-algo
+                                        [instType] => FUTURES
+                                [uly] => BTC-USD
+                                [instId] => BTC-USD-210924
+                    )*/
+                    //是否是当前用户获取数据
+                    if(empty($this->keysecret) || $this->keysecret['key']!=$is_array[0]) continue;
 
-                    $table=$this->userKey($v[1],$v[0]);
-                    $data=$global->getQueue(strtolower($table));
-                    $temp[strtolower($table)]=$data;
+                    $data=$global->getQueue($k);
+                    $temp[$k]=$data;
                 }else{
-                    $data=$global->get(strtolower($v));
-                    $temp[strtolower($v)]=$data;
+                    /*[{"channel":"candle5m","instId":"BTC-USDT"}] => Array
+                                (
+                                    [channel] => candle5m
+                                    [instId] => BTC-USDT
+                    )*/
+
+                    $data=$global->get($k);
+                    $temp[$k]=$data;
                 }
             }
         }else{
-            //返回规定的数据
-            if(!empty($this->keysecret)) {
-                //是否有私有数据
-                if(isset($all_sub[$this->keysecret['key']])) $sub=array_merge($sub,$all_sub[$this->keysecret['key']]);
-            }
-
-            /*print_r($sub);
-            die;*/
+            //print_r($sub);
             foreach ($sub as $k=>$v){
-                if(count($v)==1) {
-                    $table=$v[0];
-                    $data=$global->get(strtolower($table));
+                if(!array_key_exists('key',$v)){
+                    $table=json_encode($v);
+                    $data=$global->get($table);
                 } else {
-                    //判断私有数据是否需要走队列数据
-                    //$temp_v=explode(self::$USER_DELIMITER,$v);
-                    $table=$this->userKey($v[1],$v[0]);
-                    $data=$global->getQueue(strtolower($table));
+                    $keysecret=[
+                        'key'=>$v['key'],
+                    ];
+                    unset($v['key']);
+                    $table=$this->userKey($keysecret,json_encode($v));
+                    $data=$global->getQueue($table);
                 }
 
                 if(empty($data)) continue;
-
                 $temp[$table]=$data;
             }
         }
