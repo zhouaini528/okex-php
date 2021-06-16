@@ -720,4 +720,10 @@ $okex->getSubscribe([
 
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
 
+**如果你觉得对你有帮助，谢谢你的打赏**
+
+![zhifubao](https://user-images.githubusercontent.com/5442664/122150914-303fcf00-ce91-11eb-91bd-7f7a24c9ab03.jpg)
+
+![weixin](https://user-images.githubusercontent.com/5442664/122150967-4a79ad00-ce91-11eb-866f-4e5f6c859269.jpg)
+
 
