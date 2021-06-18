@@ -40,6 +40,8 @@ class SocketClient
 
         $this->add('keysecret',[]);//目前总共key
 
+        $this->add('global_local',[]);//临时存储数据
+
         $this->add('debug',[]);
     }
 
@@ -117,6 +119,7 @@ class SocketClient
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return [];
 
+        $global_local=$global->get('global_local');
         $temp=[];
 
         //默认返回所有数据
@@ -143,7 +146,8 @@ class SocketClient
                                     [instId] => BTC-USDT
                     )*/
 
-                    $data=$global->get($k);
+                    //$data=$global->get($k);
+                    $data=$global_local['public'][$k];
                     $temp[$k]=$data;
                 }
             }
@@ -152,7 +156,8 @@ class SocketClient
             foreach ($sub as $k=>$v){
                 if(!array_key_exists('key',$v)){
                     $table=json_encode($v);
-                    $data=$global->get($table);
+                    //$data=$global->get($table);
+                    $data=$global_local['public'][$table];
                 } else {
                     $keysecret=[
                         'key'=>$v['key'],

@@ -40,6 +40,8 @@ class SocketClient
 
         $this->add('keysecret',[]);//目前总共key
 
+        $this->add('global_local',[]);//临时存储数据
+
         $this->add('debug',[]);
     }
 
@@ -117,6 +119,7 @@ class SocketClient
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return [];
 
+        $global_local=$global->get('global_local');
         $temp=[];
 
         //默认返回所有数据
@@ -129,8 +132,10 @@ class SocketClient
                     $data=$global->getQueue(strtolower($table));
                     $temp[strtolower($table)]=$data;
                 }else{
-                    $data=$global->get(strtolower($v));
-                    $temp[strtolower($v)]=$data;
+                    //$data=$global->get(strtolower($v));
+                    //$temp[strtolower($v)]=$data;
+                    $k_strtolower=strtolower($v);
+                    $temp[$k_strtolower]=$global_local['public'][$k_strtolower];
                 }
             }
         }else{
@@ -145,7 +150,8 @@ class SocketClient
             foreach ($sub as $k=>$v){
                 if(count($v)==1) {
                     $table=$v[0];
-                    $data=$global->get(strtolower($table));
+                    //$data=$global->get(strtolower($table));
+                    $data=$global_local['public'][strtolower($table)];
                 } else {
                     //判断私有数据是否需要走队列数据
                     //$temp_v=explode(self::$USER_DELIMITER,$v);
