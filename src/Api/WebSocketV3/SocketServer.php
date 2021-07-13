@@ -338,7 +338,8 @@ class SocketServer
         //**********判断是否已经登陆
         $client_keysecret=$global->get('keysecret');
         $keysecret=$con->tag_keysecret;
-        if($client_keysecret[$keysecret['key']]['login']!=1) {
+
+        if($client_keysecret[$keysecret['key']]['login']!=1 || $client_keysecret[$keysecret['key']]['key']!=$con->tag_keysecret['key']) {
             $this->log('subscribe private dont login return '.$keysecret['key']);
             return;
         }

@@ -255,14 +255,14 @@ switch ($action){
     }
 
     case 10006:{
-        $okex->client()->test_reconnection2();
+        $okex->reconPublic();
         break;
     }
 
     case 10007:{
         //private
         //print_r($key_secret[0]);
-        $okex->client()->test_reconnection3($key_secret[0]['key']);
+        $okex->reconPrivate($key_secret[0]['key']);
         break;
     }
 }

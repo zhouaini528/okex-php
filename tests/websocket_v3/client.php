@@ -24,7 +24,7 @@ $okex->config([
     //'log'=>['filename'=>'okex'],
 
     //Daemons address and port,default 0.0.0.0:2207
-    'global'=>'127.0.0.1:22080',
+    //'global'=>'127.0.0.1:22080',
 
     //Heartbeat time,default 20 seconds
     //'ping_time'=>20,
@@ -70,9 +70,9 @@ switch ($action){
     case 10:{
         $okex->keysecret($key_secret[0]);
         $okex->subscribe([
-            'spot/depth5:BCH-USDT',
+            /*'spot/depth5:BCH-USDT',
             'futures/depth5:BCH-USD-210924',
-            'swap/depth5:BCH-USD-SWAP',
+            'swap/depth5:BCH-USD-SWAP',*/
 
             'futures/position:BCH-USD-210924',
             'futures/account:BCH-USDT',
@@ -249,14 +249,14 @@ switch ($action){
     }
 
     case 10006:{
-        $okex->client()->test_reconnection2();
+        $okex->reconPublic();
         break;
     }
 
     case 10007:{
         //private
         //print_r($key_secret[0]);
-        $okex->client()->test_reconnection3($key_secret[0]['key']);
+        $okex->reconPrivate($key_secret[0]['key']);
         break;
     }
 }

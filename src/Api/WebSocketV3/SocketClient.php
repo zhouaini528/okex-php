@@ -172,6 +172,21 @@ class SocketClient
         return $temp;
     }
 
+    /*
+     *
+     * */
+    function reconPrivate(string $key){
+        $this->client->debug=[
+            'private'=>[$key=>'close'],
+        ];
+    }
+
+    function reconPublic(){
+        $this->client->debug=[
+            'public'=>['public'=>'close'],
+        ];
+    }
+
     function test(){
         print_r($this->client->all_sub);
         print_r($this->client->add_sub);
@@ -188,19 +203,7 @@ class SocketClient
         }
     }
 
-    function test_reconnection(){
-        $this->client->debug=[
-            'public'=>['public'=>'close'],
-        ];
-    }
-
     function test_reconnection2(){
         $this->client->debug2=1;
-    }
-
-    function test_reconnection3($key){
-        $this->client->debug=[
-            'private'=>[$key=>'close'],
-        ];
     }
 }
