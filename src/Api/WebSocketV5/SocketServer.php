@@ -190,7 +190,7 @@ class SocketServer
                 //Timer::del($con->timer_other);
             }
 
-            //$con->reConnect(10);
+            $con->reConnect(10);
         };
     }
 
@@ -277,6 +277,9 @@ class SocketServer
 
                 $debug['private'][$con->tag_keysecret['key']]='recon';
                 $global->save('debug',$debug);
+
+                //更改登录状态
+                $global->keysecretUpdate($con->tag_keysecret['key'],2);
 
                 $con->close();
             }
