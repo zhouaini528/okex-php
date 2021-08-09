@@ -124,6 +124,8 @@ trait SocketFunction
             }
         }
 
-        $global->save('add_sub',$this->resub($temp));
+        $add_sub=$global->get('add_sub');
+        if(empty($add_sub)) $global->save('add_sub',$this->resub($temp));
+        else $global->save('add_sub',array_merge($this->resub($temp),$add_sub));
     }
 }

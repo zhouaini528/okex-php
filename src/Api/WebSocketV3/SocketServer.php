@@ -252,10 +252,10 @@ class SocketServer
             }
         }else{
             //private
-            if(isset($debug['private'][$con->tag_keysecret['key']]) && $debug['private'][$con->tag_keysecret['key']]=='close'){
+            if(isset($debug['private'][$con->tag_keysecret['key']]) && $debug['private'][$con->tag_keysecret['key']]==$con->tag_keysecret['key']){
                 $this->log($con->tag_keysecret['key'].' debug '.json_encode($debug));
 
-                $debug['private'][$con->tag_keysecret['key']]='recon';
+                unset($debug['private'][$con->tag_keysecret['key']]);
                 $global->save('debug',$debug);
 
                 //更改登录状态
