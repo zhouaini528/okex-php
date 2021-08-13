@@ -102,14 +102,17 @@ trait SocketFunction
             $this->keysecret=$keysecret;
 
             $temp=[];
-            foreach ($all_sub as $v){
-                if(is_array($v) && $keysecret['key']==$v[1]['key']){
-                    $temp[]=$v[0];
+            foreach ($all_sub as $k=>$v){
+                $t=explode(self::$USER_DELIMITER,$k);
+                if(count($t)>1 && $t[0]==$keysecret['key']) {
+                    $temp[]=$v;
                 }
             }
         }
 
-        $global->save('add_sub',$this->resub($temp));
+        $add_sub=$global->get('add_sub');
+        if(empty($add_sub)) $global->save('add_sub',$this->resub($temp));
+        else $global->save('add_sub',array_merge($this->resub($temp),$add_sub));
     }
 
 }
