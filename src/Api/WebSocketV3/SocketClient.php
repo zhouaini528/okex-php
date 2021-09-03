@@ -137,7 +137,7 @@ class SocketClient
                     //$data=$global->get(strtolower($v));
                     //$temp[strtolower($v)]=$data;
                     $k_strtolower=strtolower($v);
-                    $temp[$k_strtolower]=$global_local['public'][$k_strtolower];
+                    if(isset($global_local['public'][$k_strtolower])) $temp[$k_strtolower]=$global_local['public'][$k_strtolower];
                 }
             }
         }else{
