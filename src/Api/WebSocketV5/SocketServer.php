@@ -126,7 +126,7 @@ class SocketServer
                     $con->tag_data_time='1619149751';
                     return;
                 }*/
-
+                unset($data['arg']['uid']);
                 $table=json_encode($data['arg']);
 
                 if($con->tag != 'public') {
