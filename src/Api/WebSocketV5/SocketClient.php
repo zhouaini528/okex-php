@@ -149,6 +149,8 @@ class SocketClient
                     )*/
 
                     //$data=$global->get($k);
+                    if(!isset($global_local['public'][$k])) continue;
+                    
                     $data=$global_local['public'][$k];
                     $temp[$k]=$data;
                 }
