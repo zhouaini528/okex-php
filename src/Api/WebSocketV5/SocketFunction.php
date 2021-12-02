@@ -96,7 +96,7 @@ trait SocketFunction
         if($type=='public'){
             $temp=[];
             foreach ($all_sub as $v){
-                if(!is_array($v)) $temp[]=$v;
+                $temp[]=$v;
             }
         }else{
             $this->keysecret=$keysecret;
