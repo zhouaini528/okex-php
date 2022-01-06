@@ -718,6 +718,13 @@ $okex->getSubscribe([
 },true);
 ```
 
+重新链接websocket公共行情数据、私有数据
+```php
+$okex->reconPublic();//重新链接全部共行情
+
+$okex->reconPrivate($key);//重新订阅私有数据
+```
+
 [更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
 
 **如果你觉得对你有帮助，谢谢你的打赏**
