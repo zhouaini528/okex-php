@@ -716,4 +716,13 @@ $okex->getSubscribe([
     print_r(json_encode($data));
 },true);
 ```
+
+Re link websocket public quotation data and private data
+```php
+$okex->reconPublic();
+
+$okex->reconPrivate($key);
+```
+
+
 [More Test](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
