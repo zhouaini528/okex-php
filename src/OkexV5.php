@@ -10,6 +10,7 @@ use Lin\Okex\Api\OkexV5\Asset;
 use Lin\Okex\Api\OkexV5\Market;
 use Lin\Okex\Api\OkexV5\Publics;
 use Lin\Okex\Api\OkexV5\SubAccount;
+use Lin\Okex\Api\OkexV5\System;
 use Lin\Okex\Api\OkexV5\Trade;
 
 class OkexV5
@@ -92,5 +93,12 @@ class OkexV5
      * */
     public function trade(){
         return new Trade($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function system(){
+        return new System($this->init());
     }
 }
