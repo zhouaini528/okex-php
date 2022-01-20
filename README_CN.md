@@ -293,10 +293,10 @@ Websocket有两个服务server和client，server负责处理交易所新连接�
 
 Server端初始化，必须在Linux CLI模式下开启。[Websocket行情应用举例](https://github.com/zhouaini528/websocket-market)
 ```php
-use Lin\Okex\OkexWebSocket;
+use Lin\Okex\OkexWebSocketV5;
 require __DIR__ .'./vendor/autoload.php';
 
-$okex=new OkexWebSocket();
+$okex=new OkexWebSocketV5();
 
 $okex->config([
     //是否开启日志,默认未开启 false
@@ -332,7 +332,7 @@ $okex->start();
 
 Client端初始化。
 ```php
-$okex=new OkexWebSocket();
+$okex=new OkexWebSocketV5();
 
 $okex->config([
     //是否开启日志,默认未开启 false
@@ -361,10 +361,10 @@ $okex->config([
 ```php
 //你可以只订阅公共频道
 $okex->subscribe([
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
-    'swap/depth5:BCH-USD-SWAP',
-    'option/depth5:BTCUSD-20201021-11750-C',
+    ["channel"=>"instruments","instType"=>"SPOT"],
+    ["channel"=>"instruments","instType"=>"SWAP"],
+    ["channel"=>"instruments","instType"=>"FUTURES"],
+    ["channel"=>"instruments","instType"=>"OPTION"],
 ]);
 
 //你也可以私人频道与公共频道混合订阅
@@ -375,15 +375,24 @@ $okex->keysecret([
 ]);
 $okex->subscribe([
     //public
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
-    'swap/depth5:BCH-USD-SWAP',
-    'option/depth5:BTCUSD-20201021-11750-C',
-    
+    ["channel"=>"tickers","instId"=>"BTC-USDT"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
+
+    ["channel"=>"books","instId"=>"BTC-USDT"],
+    ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"books","instId"=>"BTC-USD-210924"],
+
+    ["channel"=>"candle5m","instId"=>"BTC-USDT"],
+    ["channel"=>"candle15m","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"candle30m","instId"=>"BTC-USD-210924"],
+
     //private
-    'futures/position:BCH-USD-210326',
-    'futures/account:BCH-USDT',
-    'swap/position:BCH-USD-SWAP',
+    ["channel"=>"account","ccy"=>"BTC"],
+    ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
+    ["channel"=>"balance_and_position"],
+    ["channel"=>"orders","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
+    ["channel"=>"orders-algo","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
 ]);
 ```
 
@@ -391,10 +400,10 @@ $okex->subscribe([
 ```php
 //取消订阅公共频道
 $okex->unsubscribe([
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
-    'swap/depth5:BCH-USD-SWAP',
-    'option/depth5:BTCUSD-20201021-11750-C',
+    ["channel"=>"instruments","instType"=>"SPOT"],
+    ["channel"=>"instruments","instType"=>"SWAP"],
+    ["channel"=>"instruments","instType"=>"FUTURES"],
+    ["channel"=>"instruments","instType"=>"OPTION"],
 ]);
 
 //取消私人频道与公共频道混合订阅
@@ -405,15 +414,24 @@ $okex->keysecret([
 ]);
 $okex->unsubscribe([
     //public
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
-    'swap/depth5:BCH-USD-SWAP',
-    'option/depth5:BTCUSD-20201021-11750-C',
-    
+    ["channel"=>"tickers","instId"=>"BTC-USDT"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
+
+    ["channel"=>"books","instId"=>"BTC-USDT"],
+    ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"books","instId"=>"BTC-USD-210924"],
+
+    ["channel"=>"candle5m","instId"=>"BTC-USDT"],
+    ["channel"=>"candle15m","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"candle30m","instId"=>"BTC-USD-210924"],
+
     //private
-    'futures/position:BCH-USD-210326',
-    'futures/account:BCH-USDT',
-    'swap/position:BCH-USD-SWAP',
+    ["channel"=>"account","ccy"=>"BTC"],
+    ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
+    ["channel"=>"balance_and_position"],
+    ["channel"=>"orders","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
+    ["channel"=>"orders-algo","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
 ]);
 ```
 
@@ -439,23 +457,26 @@ $okex->getSubscribes(function($data){
 ```php
 //The first way
 $data=$okex->getSubscribe([
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
+    ["channel"=>"tickers","instId"=>"BTC-USDT"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
 ]);
 print_r(json_encode($data));
 
 //The second way callback
 $okex->getSubscribe([
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
+    ["channel"=>"tickers","instId"=>"BTC-USDT"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
 ],function($data){
     print_r(json_encode($data));
 });
 
 //The third way is to guard the process
 $okex->getSubscribe([
-    'spot/depth5:BCH-USDT',
-    'futures/depth5:BCH-USD-210326',
+    ["channel"=>"tickers","instId"=>"BTC-USDT"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-SWAP"],
+    ["channel"=>"tickers","instId"=>"BTC-USD-210924"],
 ],function($data){
     print_r(json_encode($data));
 },true);
@@ -466,16 +487,22 @@ $okex->getSubscribe([
 //The first way
 $okex->keysecret($key_secret);
 $data=$okex->getSubscribe([
-    'futures/depth5:BCH-USD-210326',
-    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+    ["channel"=>"books","instId"=>"BTC-USDT"],
+    ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+
+    ["channel"=>"account","ccy"=>"BTC"],
+    ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
 ]);
 print_r(json_encode($data));
 
 //The second way callback
 $okex->keysecret($key_secret);
 $okex->getSubscribe([
-    'futures/depth5:BCH-USD-210326',
-    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+    ["channel"=>"books","instId"=>"BTC-USDT"],
+    ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+
+    ["channel"=>"account","ccy"=>"BTC"],
+    ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
 ],function($data){
     print_r(json_encode($data));
 });
@@ -483,8 +510,11 @@ $okex->getSubscribe([
 //The third way is to guard the process
 $okex->keysecret($key_secret);
 $okex->getSubscribe([
-    'futures/depth5:BCH-USD-210326',
-    'futures/position:BCH-USD-210326',//If there are private channels, $okex->keysecret() must be set
+    ["channel"=>"books","instId"=>"BTC-USDT"],
+    ["channel"=>"books","instId"=>"BTC-USD-SWAP"],
+
+    ["channel"=>"account","ccy"=>"BTC"],
+    ["channel"=>"positions","instType"=>"FUTURES","uly"=>"BTC-USD","instId"=>"BTC-USD-210924"],
 ],function($data){
     print_r(json_encode($data));
 },true);
