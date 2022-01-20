@@ -527,7 +527,7 @@ $okex->reconPublic();//重新链接全部共行情
 $okex->reconPrivate($key);//重新订阅私有数据
 ```
 
-[更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket/client.php)
+[更多用例请查看](https://github.com/zhouaini528/okex-php/tree/master/tests/websocket_v5/client.php)
 
 **如果你觉得对你有帮助，谢谢你的打赏**
 
