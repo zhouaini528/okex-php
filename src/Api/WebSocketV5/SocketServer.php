@@ -47,11 +47,11 @@ class SocketServer
 
         switch ($type){
             case 'public':{
-                return 'ws://ws.okex.com:8443/ws/v5/public';
+                return 'ws://ws.okx.com:8443/ws/v5/public';
             }
             //private
             default :{
-                return 'ws://ws.okex.com:8443/ws/v5/private';
+                return 'ws://ws.okx.com:8443/ws/v5/private';
             }
         }
     }

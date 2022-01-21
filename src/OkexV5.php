@@ -22,7 +22,7 @@ class OkexV5
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okex.com'){
+    function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://www.okx.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;

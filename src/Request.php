@@ -43,7 +43,7 @@ class Request
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
         $this->passphrase = $data['passphrase'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.okex.com/';
+        $this->host=$data['host'] ?? 'https://www.okx.com/';
 
         $this->options=$data['options'] ?? [];
 
