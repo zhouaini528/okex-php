@@ -38,6 +38,8 @@ class Request
 
     protected $version='';
 
+    protected $response_headers=[];
+
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
@@ -136,6 +138,9 @@ class Request
         die;*/
         $response = $client->request($this->type, $url, $this->options);
 
+        $this->response_headers = $response->getHeaders();
+
+
         return $response->getBody()->getContents();
     }
 
@@ -168,5 +173,12 @@ class Request
 
             throw new Exception(json_encode($temp));
         }
+    }
+
+    /**
+     * Get Response Headers
+     * */
+    public function getResponseHeaders(){
+        return $this->response_headers;
     }
 }
