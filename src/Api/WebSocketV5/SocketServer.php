@@ -371,15 +371,14 @@ class SocketServer
         ];
 
         $temp=$global->get('del_sub');
-        foreach ($temp as $v){
-            if(array_key_exists('key',$v)) {
-                unset($v['key']);
-                $sub['private'][]=$v;
-            }
-            else $sub['public'][]=$v;
-        }
 
         if($con->tag=='public'){
+
+            foreach ($temp as $v){
+                if(!array_key_exists('key',$v)) $sub['public'][]=$v;
+            }
+            if(empty($sub['public'])) return;
+
             $data=[
                 'op' => "unsubscribe",
                 'args' => $sub['public'],
@@ -397,13 +396,25 @@ class SocketServer
             //*******订阅成功后 更改 all_sub  public 值
             $global->unAllSubUpdate('public',['sub'=>$sub['public']]);
         }else{
+            //获取当前用户
             $keysecret=$con->tag_keysecret;
+
+            //判断private取消订阅是当前用户
+            foreach ($temp as $v){
+                if(array_key_exists('key',$v)) {
+                    if($keysecret['key']!==$v['key']) return;
+                    unset($v['key']);
+
+                    $sub['private'][]=$v;//TODO 有BUG 全部私有数据
+                }
+            }
 
             $data=[
                 'op' => "unsubscribe",
                 'args' => $sub['private'],
             ];
-
+            //print_r($temp);
+            //print_r($data);
             $data=json_encode($data);
             $con->send($data);
 
